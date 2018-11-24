@@ -1,0 +1,1235 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.4.19
+-- Dumped by pg_dump version 9.4.19
+-- Started on 2018-11-24 06:52:51
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 1 (class 3079 OID 11855)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2163 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 178 (class 1259 OID 42382)
+-- Name: agente; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.agente (
+    idagente integer NOT NULL,
+    cnpj character varying(20),
+    idpessoa integer NOT NULL
+);
+
+
+ALTER TABLE public.agente OWNER TO postgres;
+
+--
+-- TOC entry 177 (class 1259 OID 42380)
+-- Name: agente_idagente_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.agente_idagente_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.agente_idagente_seq OWNER TO postgres;
+
+--
+-- TOC entry 2164 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: agente_idagente_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.agente_idagente_seq OWNED BY public.agente.idagente;
+
+
+--
+-- TOC entry 180 (class 1259 OID 42395)
+-- Name: atracoes; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.atracoes (
+    idatracoes integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    descricao character varying(150),
+    idade_minima integer NOT NULL,
+    limite_pessoas integer NOT NULL,
+    horario_abertura character varying(10) NOT NULL,
+    horario_encerramento character varying(10) NOT NULL,
+    altura_minima double precision NOT NULL
+);
+
+
+ALTER TABLE public.atracoes OWNER TO postgres;
+
+--
+-- TOC entry 188 (class 1259 OID 42482)
+-- Name: atracoes_has_park; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.atracoes_has_park (
+    idatracoes integer NOT NULL,
+    idpark integer NOT NULL
+);
+
+
+ALTER TABLE public.atracoes_has_park OWNER TO postgres;
+
+--
+-- TOC entry 179 (class 1259 OID 42393)
+-- Name: atracoes_idatracoes_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.atracoes_idatracoes_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.atracoes_idatracoes_seq OWNER TO postgres;
+
+--
+-- TOC entry 2165 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: atracoes_idatracoes_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.atracoes_idatracoes_seq OWNED BY public.atracoes.idatracoes;
+
+
+--
+-- TOC entry 176 (class 1259 OID 42369)
+-- Name: cliente; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.cliente (
+    idcliente integer NOT NULL,
+    cpf character varying(20),
+    idpessoa integer NOT NULL
+);
+
+
+ALTER TABLE public.cliente OWNER TO postgres;
+
+--
+-- TOC entry 175 (class 1259 OID 42367)
+-- Name: cliente_idcliente_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.cliente_idcliente_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cliente_idcliente_seq OWNER TO postgres;
+
+--
+-- TOC entry 2166 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: cliente_idcliente_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.cliente_idcliente_seq OWNED BY public.cliente.idcliente;
+
+
+--
+-- TOC entry 190 (class 1259 OID 42497)
+-- Name: eventos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.eventos (
+    ideventos integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    descricao character varying(150) NOT NULL,
+    idade_indicacao integer NOT NULL,
+    tipo_evento character varying(50),
+    idpark integer NOT NULL
+);
+
+
+ALTER TABLE public.eventos OWNER TO postgres;
+
+--
+-- TOC entry 189 (class 1259 OID 42495)
+-- Name: eventos_ideventos_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.eventos_ideventos_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.eventos_ideventos_seq OWNER TO postgres;
+
+--
+-- TOC entry 2167 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: eventos_ideventos_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.eventos_ideventos_seq OWNED BY public.eventos.ideventos;
+
+
+--
+-- TOC entry 192 (class 1259 OID 42510)
+-- Name: hospedagem; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.hospedagem (
+    idhospedagem integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    preco_noite double precision NOT NULL,
+    tipo_hotel character varying(50) NOT NULL,
+    transporte_acesso character varying NOT NULL,
+    idpark integer NOT NULL,
+    CONSTRAINT hospedagem_transporte_acesso_check CHECK (((((transporte_acesso)::text = 'carro'::text) OR ((transporte_acesso)::text = 'onibus'::text)) OR ((transporte_acesso)::text = 'barco'::text)))
+);
+
+
+ALTER TABLE public.hospedagem OWNER TO postgres;
+
+--
+-- TOC entry 191 (class 1259 OID 42508)
+-- Name: hospedagem_idhospedagem_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.hospedagem_idhospedagem_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hospedagem_idhospedagem_seq OWNER TO postgres;
+
+--
+-- TOC entry 2168 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: hospedagem_idhospedagem_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.hospedagem_idhospedagem_seq OWNED BY public.hospedagem.idhospedagem;
+
+
+--
+-- TOC entry 182 (class 1259 OID 42403)
+-- Name: local_; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.local_ (
+    idlocal_ integer NOT NULL,
+    cidade character varying(20) NOT NULL,
+    pais character varying(20) NOT NULL,
+    moeda character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public.local_ OWNER TO postgres;
+
+--
+-- TOC entry 181 (class 1259 OID 42401)
+-- Name: local__idlocal__seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.local__idlocal__seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.local__idlocal__seq OWNER TO postgres;
+
+--
+-- TOC entry 2169 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: local__idlocal__seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.local__idlocal__seq OWNED BY public.local_.idlocal_;
+
+
+--
+-- TOC entry 194 (class 1259 OID 42527)
+-- Name: pacote; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.pacote (
+    idpacote integer NOT NULL,
+    qtdpessoas integer NOT NULL,
+    idpark integer NOT NULL
+);
+
+
+ALTER TABLE public.pacote OWNER TO postgres;
+
+--
+-- TOC entry 193 (class 1259 OID 42525)
+-- Name: pacote_idpacote_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pacote_idpacote_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.pacote_idpacote_seq OWNER TO postgres;
+
+--
+-- TOC entry 2170 (class 0 OID 0)
+-- Dependencies: 193
+-- Name: pacote_idpacote_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pacote_idpacote_seq OWNED BY public.pacote.idpacote;
+
+
+--
+-- TOC entry 184 (class 1259 OID 42411)
+-- Name: park; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.park (
+    idpark integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    idlocal_ integer NOT NULL
+);
+
+
+ALTER TABLE public.park OWNER TO postgres;
+
+--
+-- TOC entry 183 (class 1259 OID 42409)
+-- Name: park_idpark_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.park_idpark_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.park_idpark_seq OWNER TO postgres;
+
+--
+-- TOC entry 2171 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: park_idpark_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.park_idpark_seq OWNED BY public.park.idpark;
+
+
+--
+-- TOC entry 196 (class 1259 OID 42540)
+-- Name: personagens; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.personagens (
+    idpersonagens integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    animacao character varying(100) NOT NULL,
+    ideventos integer NOT NULL,
+    idatracoes integer NOT NULL
+);
+
+
+ALTER TABLE public.personagens OWNER TO postgres;
+
+--
+-- TOC entry 195 (class 1259 OID 42538)
+-- Name: personagens_idpersonagens_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.personagens_idpersonagens_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.personagens_idpersonagens_seq OWNER TO postgres;
+
+--
+-- TOC entry 2172 (class 0 OID 0)
+-- Dependencies: 195
+-- Name: personagens_idpersonagens_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.personagens_idpersonagens_seq OWNED BY public.personagens.idpersonagens;
+
+
+--
+-- TOC entry 174 (class 1259 OID 42361)
+-- Name: pessoa; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.pessoa (
+    idpessoa integer NOT NULL,
+    nome character varying(50),
+    email character varying(30),
+    telefone character varying(20)
+);
+
+
+ALTER TABLE public.pessoa OWNER TO postgres;
+
+--
+-- TOC entry 173 (class 1259 OID 42359)
+-- Name: pessoa_idpessoa_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pessoa_idpessoa_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.pessoa_idpessoa_seq OWNER TO postgres;
+
+--
+-- TOC entry 2173 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: pessoa_idpessoa_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pessoa_idpessoa_seq OWNED BY public.pessoa.idpessoa;
+
+
+--
+-- TOC entry 186 (class 1259 OID 42437)
+-- Name: restaurantes; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.restaurantes (
+    idrestaurantes integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    ponto_referencia character varying(100) NOT NULL,
+    tipo_culinaria character varying(50) NOT NULL,
+    tipo_restaurante character varying(50) NOT NULL,
+    faixa_precos character varying(50) NOT NULL,
+    horario_abertura character varying(10) NOT NULL,
+    horario_encerramento character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public.restaurantes OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 42443)
+-- Name: restaurantes_has_park; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.restaurantes_has_park (
+    idrestaurante integer NOT NULL,
+    idpark integer NOT NULL
+);
+
+
+ALTER TABLE public.restaurantes_has_park OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 42435)
+-- Name: restaurantes_idrestaurantes_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.restaurantes_idrestaurantes_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.restaurantes_idrestaurantes_seq OWNER TO postgres;
+
+--
+-- TOC entry 2174 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: restaurantes_idrestaurantes_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.restaurantes_idrestaurantes_seq OWNED BY public.restaurantes.idrestaurantes;
+
+
+--
+-- TOC entry 198 (class 1259 OID 42558)
+-- Name: venda; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.venda (
+    idvenda integer NOT NULL,
+    data_venda date,
+    valor double precision,
+    idcliente integer NOT NULL,
+    idagente integer NOT NULL,
+    idpacote integer NOT NULL
+);
+
+
+ALTER TABLE public.venda OWNER TO postgres;
+
+--
+-- TOC entry 197 (class 1259 OID 42556)
+-- Name: venda_idvenda_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.venda_idvenda_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.venda_idvenda_seq OWNER TO postgres;
+
+--
+-- TOC entry 2175 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: venda_idvenda_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.venda_idvenda_seq OWNED BY public.venda.idvenda;
+
+
+--
+-- TOC entry 200 (class 1259 OID 42582)
+-- Name: voo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE public.voo (
+    idvoo integer NOT NULL,
+    agencia_voo character varying(20) NOT NULL,
+    tempo_estimado character varying(20) NOT NULL,
+    modelo_aviao character varying(20) NOT NULL,
+    data_ida date NOT NULL,
+    data_volta date NOT NULL,
+    idpacote integer NOT NULL
+);
+
+
+ALTER TABLE public.voo OWNER TO postgres;
+
+--
+-- TOC entry 199 (class 1259 OID 42580)
+-- Name: voo_idvoo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.voo_idvoo_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.voo_idvoo_seq OWNER TO postgres;
+
+--
+-- TOC entry 2176 (class 0 OID 0)
+-- Dependencies: 199
+-- Name: voo_idvoo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.voo_idvoo_seq OWNED BY public.voo.idvoo;
+
+
+--
+-- TOC entry 1964 (class 2604 OID 42385)
+-- Name: idagente; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.agente ALTER COLUMN idagente SET DEFAULT nextval('public.agente_idagente_seq'::regclass);
+
+
+--
+-- TOC entry 1965 (class 2604 OID 42398)
+-- Name: idatracoes; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.atracoes ALTER COLUMN idatracoes SET DEFAULT nextval('public.atracoes_idatracoes_seq'::regclass);
+
+
+--
+-- TOC entry 1963 (class 2604 OID 42372)
+-- Name: idcliente; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cliente ALTER COLUMN idcliente SET DEFAULT nextval('public.cliente_idcliente_seq'::regclass);
+
+
+--
+-- TOC entry 1969 (class 2604 OID 42500)
+-- Name: ideventos; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.eventos ALTER COLUMN ideventos SET DEFAULT nextval('public.eventos_ideventos_seq'::regclass);
+
+
+--
+-- TOC entry 1970 (class 2604 OID 42513)
+-- Name: idhospedagem; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.hospedagem ALTER COLUMN idhospedagem SET DEFAULT nextval('public.hospedagem_idhospedagem_seq'::regclass);
+
+
+--
+-- TOC entry 1966 (class 2604 OID 42406)
+-- Name: idlocal_; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.local_ ALTER COLUMN idlocal_ SET DEFAULT nextval('public.local__idlocal__seq'::regclass);
+
+
+--
+-- TOC entry 1972 (class 2604 OID 42530)
+-- Name: idpacote; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pacote ALTER COLUMN idpacote SET DEFAULT nextval('public.pacote_idpacote_seq'::regclass);
+
+
+--
+-- TOC entry 1967 (class 2604 OID 42414)
+-- Name: idpark; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.park ALTER COLUMN idpark SET DEFAULT nextval('public.park_idpark_seq'::regclass);
+
+
+--
+-- TOC entry 1973 (class 2604 OID 42543)
+-- Name: idpersonagens; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personagens ALTER COLUMN idpersonagens SET DEFAULT nextval('public.personagens_idpersonagens_seq'::regclass);
+
+
+--
+-- TOC entry 1962 (class 2604 OID 42364)
+-- Name: idpessoa; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pessoa ALTER COLUMN idpessoa SET DEFAULT nextval('public.pessoa_idpessoa_seq'::regclass);
+
+
+--
+-- TOC entry 1968 (class 2604 OID 42440)
+-- Name: idrestaurantes; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.restaurantes ALTER COLUMN idrestaurantes SET DEFAULT nextval('public.restaurantes_idrestaurantes_seq'::regclass);
+
+
+--
+-- TOC entry 1974 (class 2604 OID 42561)
+-- Name: idvenda; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.venda ALTER COLUMN idvenda SET DEFAULT nextval('public.venda_idvenda_seq'::regclass);
+
+
+--
+-- TOC entry 1975 (class 2604 OID 42585)
+-- Name: idvoo; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.voo ALTER COLUMN idvoo SET DEFAULT nextval('public.voo_idvoo_seq'::regclass);
+
+
+--
+-- TOC entry 2132 (class 0 OID 42382)
+-- Dependencies: 178
+-- Data for Name: agente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.agente (idagente, cnpj, idpessoa) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2177 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: agente_idagente_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.agente_idagente_seq', 1, false);
+
+
+--
+-- TOC entry 2134 (class 0 OID 42395)
+-- Dependencies: 180
+-- Data for Name: atracoes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.atracoes (idatracoes, nome, descricao, idade_minima, limite_pessoas, horario_abertura, horario_encerramento, altura_minima) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2142 (class 0 OID 42482)
+-- Dependencies: 188
+-- Data for Name: atracoes_has_park; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.atracoes_has_park (idatracoes, idpark) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2178 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: atracoes_idatracoes_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.atracoes_idatracoes_seq', 1, false);
+
+
+--
+-- TOC entry 2130 (class 0 OID 42369)
+-- Dependencies: 176
+-- Data for Name: cliente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cliente (idcliente, cpf, idpessoa) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2179 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: cliente_idcliente_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.cliente_idcliente_seq', 1, false);
+
+
+--
+-- TOC entry 2144 (class 0 OID 42497)
+-- Dependencies: 190
+-- Data for Name: eventos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.eventos (ideventos, nome, descricao, idade_indicacao, tipo_evento, idpark) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2180 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: eventos_ideventos_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.eventos_ideventos_seq', 1, false);
+
+
+--
+-- TOC entry 2146 (class 0 OID 42510)
+-- Dependencies: 192
+-- Data for Name: hospedagem; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.hospedagem (idhospedagem, nome, preco_noite, tipo_hotel, transporte_acesso, idpark) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2181 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: hospedagem_idhospedagem_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.hospedagem_idhospedagem_seq', 1, false);
+
+
+--
+-- TOC entry 2136 (class 0 OID 42403)
+-- Dependencies: 182
+-- Data for Name: local_; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.local_ (idlocal_, cidade, pais, moeda) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2182 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: local__idlocal__seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.local__idlocal__seq', 1, false);
+
+
+--
+-- TOC entry 2148 (class 0 OID 42527)
+-- Dependencies: 194
+-- Data for Name: pacote; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pacote (idpacote, qtdpessoas, idpark) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2183 (class 0 OID 0)
+-- Dependencies: 193
+-- Name: pacote_idpacote_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pacote_idpacote_seq', 1, false);
+
+
+--
+-- TOC entry 2138 (class 0 OID 42411)
+-- Dependencies: 184
+-- Data for Name: park; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.park (idpark, nome, idlocal_) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2184 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: park_idpark_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.park_idpark_seq', 1, false);
+
+
+--
+-- TOC entry 2150 (class 0 OID 42540)
+-- Dependencies: 196
+-- Data for Name: personagens; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.personagens (idpersonagens, nome, animacao, ideventos, idatracoes) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2185 (class 0 OID 0)
+-- Dependencies: 195
+-- Name: personagens_idpersonagens_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.personagens_idpersonagens_seq', 1, false);
+
+
+--
+-- TOC entry 2128 (class 0 OID 42361)
+-- Dependencies: 174
+-- Data for Name: pessoa; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pessoa (idpessoa, nome, email, telefone) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2186 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: pessoa_idpessoa_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pessoa_idpessoa_seq', 1, false);
+
+
+--
+-- TOC entry 2140 (class 0 OID 42437)
+-- Dependencies: 186
+-- Data for Name: restaurantes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.restaurantes (idrestaurantes, nome, ponto_referencia, tipo_culinaria, tipo_restaurante, faixa_precos, horario_abertura, horario_encerramento) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2141 (class 0 OID 42443)
+-- Dependencies: 187
+-- Data for Name: restaurantes_has_park; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.restaurantes_has_park (idrestaurante, idpark) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2187 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: restaurantes_idrestaurantes_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.restaurantes_idrestaurantes_seq', 1, false);
+
+
+--
+-- TOC entry 2152 (class 0 OID 42558)
+-- Dependencies: 198
+-- Data for Name: venda; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.venda (idvenda, data_venda, valor, idcliente, idagente, idpacote) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2188 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: venda_idvenda_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.venda_idvenda_seq', 1, false);
+
+
+--
+-- TOC entry 2154 (class 0 OID 42582)
+-- Dependencies: 200
+-- Data for Name: voo; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.voo (idvoo, agencia_voo, tempo_estimado, modelo_aviao, data_ida, data_volta, idpacote) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2189 (class 0 OID 0)
+-- Dependencies: 199
+-- Name: voo_idvoo_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.voo_idvoo_seq', 1, false);
+
+
+--
+-- TOC entry 1981 (class 2606 OID 42387)
+-- Name: agente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.agente
+    ADD CONSTRAINT agente_pkey PRIMARY KEY (idagente);
+
+
+--
+-- TOC entry 1983 (class 2606 OID 42400)
+-- Name: atracoes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.atracoes
+    ADD CONSTRAINT atracoes_pkey PRIMARY KEY (idatracoes);
+
+
+--
+-- TOC entry 1979 (class 2606 OID 42374)
+-- Name: cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT cliente_pkey PRIMARY KEY (idcliente);
+
+
+--
+-- TOC entry 1991 (class 2606 OID 42502)
+-- Name: eventos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.eventos
+    ADD CONSTRAINT eventos_pkey PRIMARY KEY (ideventos);
+
+
+--
+-- TOC entry 1993 (class 2606 OID 42519)
+-- Name: hospedagem_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.hospedagem
+    ADD CONSTRAINT hospedagem_pkey PRIMARY KEY (idhospedagem);
+
+
+--
+-- TOC entry 1985 (class 2606 OID 42408)
+-- Name: local__pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.local_
+    ADD CONSTRAINT local__pkey PRIMARY KEY (idlocal_);
+
+
+--
+-- TOC entry 1995 (class 2606 OID 42532)
+-- Name: pacote_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.pacote
+    ADD CONSTRAINT pacote_pkey PRIMARY KEY (idpacote);
+
+
+--
+-- TOC entry 1987 (class 2606 OID 42416)
+-- Name: park_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.park
+    ADD CONSTRAINT park_pkey PRIMARY KEY (idpark);
+
+
+--
+-- TOC entry 1997 (class 2606 OID 42545)
+-- Name: personagens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.personagens
+    ADD CONSTRAINT personagens_pkey PRIMARY KEY (idpersonagens);
+
+
+--
+-- TOC entry 1977 (class 2606 OID 42366)
+-- Name: pessoa_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.pessoa
+    ADD CONSTRAINT pessoa_pkey PRIMARY KEY (idpessoa);
+
+
+--
+-- TOC entry 1989 (class 2606 OID 42442)
+-- Name: restaurantes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.restaurantes
+    ADD CONSTRAINT restaurantes_pkey PRIMARY KEY (idrestaurantes);
+
+
+--
+-- TOC entry 1999 (class 2606 OID 42563)
+-- Name: venda_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.venda
+    ADD CONSTRAINT venda_pkey PRIMARY KEY (idvenda);
+
+
+--
+-- TOC entry 2001 (class 2606 OID 42587)
+-- Name: voo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY public.voo
+    ADD CONSTRAINT voo_pkey PRIMARY KEY (idvoo);
+
+
+--
+-- TOC entry 2003 (class 2606 OID 42388)
+-- Name: agente_idpessoa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.agente
+    ADD CONSTRAINT agente_idpessoa_fkey FOREIGN KEY (idpessoa) REFERENCES public.pessoa(idpessoa);
+
+
+--
+-- TOC entry 2007 (class 2606 OID 42485)
+-- Name: atracoes_has_park_idatracoes_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.atracoes_has_park
+    ADD CONSTRAINT atracoes_has_park_idatracoes_fkey FOREIGN KEY (idatracoes) REFERENCES public.atracoes(idatracoes);
+
+
+--
+-- TOC entry 2008 (class 2606 OID 42490)
+-- Name: atracoes_has_park_idpark_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.atracoes_has_park
+    ADD CONSTRAINT atracoes_has_park_idpark_fkey FOREIGN KEY (idpark) REFERENCES public.park(idpark);
+
+
+--
+-- TOC entry 2002 (class 2606 OID 42375)
+-- Name: cliente_idpessoa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT cliente_idpessoa_fkey FOREIGN KEY (idpessoa) REFERENCES public.pessoa(idpessoa);
+
+
+--
+-- TOC entry 2009 (class 2606 OID 42503)
+-- Name: eventos_idpark_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.eventos
+    ADD CONSTRAINT eventos_idpark_fkey FOREIGN KEY (idpark) REFERENCES public.park(idpark);
+
+
+--
+-- TOC entry 2010 (class 2606 OID 42520)
+-- Name: hospedagem_idpark_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.hospedagem
+    ADD CONSTRAINT hospedagem_idpark_fkey FOREIGN KEY (idpark) REFERENCES public.park(idpark);
+
+
+--
+-- TOC entry 2011 (class 2606 OID 42533)
+-- Name: pacote_idpark_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pacote
+    ADD CONSTRAINT pacote_idpark_fkey FOREIGN KEY (idpark) REFERENCES public.park(idpark);
+
+
+--
+-- TOC entry 2004 (class 2606 OID 42417)
+-- Name: park_idlocal__fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.park
+    ADD CONSTRAINT park_idlocal__fkey FOREIGN KEY (idlocal_) REFERENCES public.local_(idlocal_);
+
+
+--
+-- TOC entry 2012 (class 2606 OID 42546)
+-- Name: personagens_idatracoes_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personagens
+    ADD CONSTRAINT personagens_idatracoes_fkey FOREIGN KEY (idatracoes) REFERENCES public.atracoes(idatracoes);
+
+
+--
+-- TOC entry 2013 (class 2606 OID 42551)
+-- Name: personagens_ideventos_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personagens
+    ADD CONSTRAINT personagens_ideventos_fkey FOREIGN KEY (ideventos) REFERENCES public.eventos(ideventos);
+
+
+--
+-- TOC entry 2005 (class 2606 OID 42446)
+-- Name: restaurantes_has_park_idpark_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.restaurantes_has_park
+    ADD CONSTRAINT restaurantes_has_park_idpark_fkey FOREIGN KEY (idpark) REFERENCES public.park(idpark);
+
+
+--
+-- TOC entry 2006 (class 2606 OID 42451)
+-- Name: restaurantes_has_park_idrestaurante_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.restaurantes_has_park
+    ADD CONSTRAINT restaurantes_has_park_idrestaurante_fkey FOREIGN KEY (idrestaurante) REFERENCES public.restaurantes(idrestaurantes);
+
+
+--
+-- TOC entry 2014 (class 2606 OID 42564)
+-- Name: venda_idagente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.venda
+    ADD CONSTRAINT venda_idagente_fkey FOREIGN KEY (idagente) REFERENCES public.agente(idagente);
+
+
+--
+-- TOC entry 2015 (class 2606 OID 42569)
+-- Name: venda_idcliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.venda
+    ADD CONSTRAINT venda_idcliente_fkey FOREIGN KEY (idcliente) REFERENCES public.cliente(idcliente);
+
+
+--
+-- TOC entry 2016 (class 2606 OID 42574)
+-- Name: venda_idpacote_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.venda
+    ADD CONSTRAINT venda_idpacote_fkey FOREIGN KEY (idpacote) REFERENCES public.pacote(idpacote);
+
+
+--
+-- TOC entry 2017 (class 2606 OID 42588)
+-- Name: voo_idpacote_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.voo
+    ADD CONSTRAINT voo_idpacote_fkey FOREIGN KEY (idpacote) REFERENCES public.pacote(idpacote);
+
+
+--
+-- TOC entry 2162 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2018-11-24 06:52:51
+
+--
+-- PostgreSQL database dump complete
+--
+

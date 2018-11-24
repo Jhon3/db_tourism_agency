@@ -1,0 +1,253 @@
+CREATE TABLE agente
+(
+  idagente serial NOT NULL,
+  cnpj character varying(20),
+  idpessoa integer NOT NULL,
+  CONSTRAINT agente_pkey PRIMARY KEY (idagente),
+  CONSTRAINT agente_idpessoa_fkey FOREIGN KEY (idpessoa)
+      REFERENCES pessoa (idpessoa) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE atracoes
+(
+  idatracoes serial NOT NULL,
+  nome character varying(50) NOT NULL,
+  descricao character varying(150),
+  idade_minima integer NOT NULL,
+  limite_pessoas integer NOT NULL,
+  horario_abertura character varying(10) NOT NULL,
+  horario_encerramento character varying(10) NOT NULL,
+  altura_minima double precision NOT NULL,
+  CONSTRAINT atracoes_pkey PRIMARY KEY (idatracoes)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE atracoes_has_park
+(
+  idatracoes integer NOT NULL,
+  idpark integer NOT NULL,
+  CONSTRAINT atracoes_has_park_idatracoes_fkey FOREIGN KEY (idatracoes)
+      REFERENCES atracoes (idatracoes) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT atracoes_has_park_idpark_fkey FOREIGN KEY (idpark)
+      REFERENCES park (idpark) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE cliente
+(
+  idcliente serial NOT NULL,
+  cpf character varying(20),
+  idpessoa integer NOT NULL,
+  CONSTRAINT cliente_pkey PRIMARY KEY (idcliente),
+  CONSTRAINT cliente_idpessoa_fkey FOREIGN KEY (idpessoa)
+      REFERENCES pessoa (idpessoa) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE eventos
+(
+  ideventos serial NOT NULL,
+  nome character varying(50) NOT NULL,
+  descricao character varying(150) NOT NULL,
+  idade_indicacao integer NOT NULL,
+  tipo_evento character varying(50),
+  idpark integer NOT NULL,
+  CONSTRAINT eventos_pkey PRIMARY KEY (ideventos),
+  CONSTRAINT eventos_idpark_fkey FOREIGN KEY (idpark)
+      REFERENCES park (idpark) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE hospedagem
+(
+  idhospedagem serial NOT NULL,
+  nome character varying(50) NOT NULL,
+  preco_noite double precision NOT NULL,
+  tipo_hotel character varying(50) NOT NULL,
+  transporte_acesso character varying NOT NULL,
+  idpark integer NOT NULL,
+  CONSTRAINT hospedagem_pkey PRIMARY KEY (idhospedagem),
+  CONSTRAINT hospedagem_idpark_fkey FOREIGN KEY (idpark)
+      REFERENCES park (idpark) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT hospedagem_transporte_acesso_check CHECK (transporte_acesso::text = 'carro'::text OR transporte_acesso::text = 'onibus'::text OR transporte_acesso::text = 'barco'::text)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE local_
+(
+  idlocal_ serial NOT NULL,
+  cidade character varying(20) NOT NULL,
+  pais character varying(20) NOT NULL,
+  moeda character varying(10) NOT NULL,
+  CONSTRAINT local__pkey PRIMARY KEY (idlocal_)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE pacote
+(
+  idpacote serial NOT NULL,
+  qtdpessoas integer NOT NULL,
+  idpark integer NOT NULL,
+  CONSTRAINT pacote_pkey PRIMARY KEY (idpacote),
+  CONSTRAINT pacote_idpark_fkey FOREIGN KEY (idpark)
+      REFERENCES park (idpark) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE park
+(
+  idpark serial NOT NULL,
+  nome character varying(50) NOT NULL,
+  idlocal_ integer NOT NULL,
+  CONSTRAINT park_pkey PRIMARY KEY (idpark),
+  CONSTRAINT park_idlocal__fkey FOREIGN KEY (idlocal_)
+      REFERENCES local_ (idlocal_) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE personagens
+(
+  idpersonagens serial NOT NULL,
+  nome character varying(50) NOT NULL,
+  animacao character varying(100) NOT NULL,
+  ideventos integer NOT NULL,
+  idatracoes integer NOT NULL,
+  CONSTRAINT personagens_pkey PRIMARY KEY (idpersonagens),
+  CONSTRAINT personagens_idatracoes_fkey FOREIGN KEY (idatracoes)
+      REFERENCES atracoes (idatracoes) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT personagens_ideventos_fkey FOREIGN KEY (ideventos)
+      REFERENCES eventos (ideventos) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE pessoa
+(
+  idpessoa serial NOT NULL,
+  nome character varying(50),
+  email character varying(30),
+  telefone character varying(20),
+  CONSTRAINT pessoa_pkey PRIMARY KEY (idpessoa)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE restaurantes
+(
+  idrestaurantes serial NOT NULL,
+  nome character varying(50) NOT NULL,
+  ponto_referencia character varying(100) NOT NULL,
+  tipo_culinaria character varying(50) NOT NULL,
+  tipo_restaurante character varying(50) NOT NULL,
+  faixa_precos character varying(50) NOT NULL,
+  horario_abertura character varying(10) NOT NULL,
+  horario_encerramento character varying(10) NOT NULL,
+  CONSTRAINT restaurantes_pkey PRIMARY KEY (idrestaurantes)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE restaurantes_has_park
+(
+  idrestaurante integer NOT NULL,
+  idpark integer NOT NULL,
+  CONSTRAINT restaurantes_has_park_idpark_fkey FOREIGN KEY (idpark)
+      REFERENCES park (idpark) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT restaurantes_has_park_idrestaurante_fkey FOREIGN KEY (idrestaurante)
+      REFERENCES restaurantes (idrestaurantes) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE venda
+(
+  idvenda serial NOT NULL,
+  data_venda date,
+  valor double precision,
+  idcliente integer NOT NULL,
+  idagente integer NOT NULL,
+  idpacote integer NOT NULL,
+  CONSTRAINT venda_pkey PRIMARY KEY (idvenda),
+  CONSTRAINT venda_idagente_fkey FOREIGN KEY (idagente)
+      REFERENCES agente (idagente) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT venda_idcliente_fkey FOREIGN KEY (idcliente)
+      REFERENCES cliente (idcliente) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT venda_idpacote_fkey FOREIGN KEY (idpacote)
+      REFERENCES pacote (idpacote) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+CREATE TABLE voo
+(
+  idvoo serial NOT NULL,
+  agencia_voo character varying(20) NOT NULL,
+  tempo_estimado character varying(20) NOT NULL,
+  modelo_aviao character varying(20) NOT NULL,
+  data_ida date NOT NULL,
+  data_volta date NOT NULL,
+  idpacote integer NOT NULL,
+  CONSTRAINT voo_pkey PRIMARY KEY (idvoo),
+  CONSTRAINT voo_idpacote_fkey FOREIGN KEY (idpacote)
+      REFERENCES pacote (idpacote) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
