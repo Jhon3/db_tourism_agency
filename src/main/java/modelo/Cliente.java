@@ -2,19 +2,20 @@ package modelo;
 
 public class Cliente {
 	
-	private int idAgente;
+	private int idCliente;
 	private String cpf;
 	private Pessoa pessoa;
-	public int getIdAgente() {
-		return idAgente;
+	
+	public int getIdCliente() {
+		return idCliente;
 	}
-	public void setIdAgente(int idAgente) {
-		this.idAgente = idAgente;
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
-	public String getCnpj() {
+	public String getCpf() {
 		return cpf;
 	}
-	public void setCnpj(String cnpj) {
+	public void setCpf(String cnpj) {
 		this.cpf = cnpj;
 	}
 	public Pessoa getPessoa() {

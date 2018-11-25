@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class Conexao {
 	public static String url = "jdbc:postgresql://localhost/db_tourism_agency"; //Caminho do banco
-	public static String user = "jhon"; //Nome do owner
-	public static String pass = "powerless"; //senha
+	public static String user = "db_FinalProject"; //Nome do owner
+	public static String pass = "12345678"; //senha
 	
 	private static Connection conexao;
 	

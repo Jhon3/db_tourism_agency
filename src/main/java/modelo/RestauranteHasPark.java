@@ -2,13 +2,13 @@ package modelo;
 
 public class RestauranteHasPark {
 	
-	private Restaurantes restaurantes;
+	private Restaurante restaurantes;
 	private Park park;
 	
-	public Restaurantes getRestaurantes() {
+	public Restaurante getRestaurantes() {
 		return restaurantes;
 	}
-	public void setRestaurante(Restaurantes restaurantes) {
+	public void setRestaurante(Restaurante restaurantes) {
 		this.restaurantes = restaurantes;
 	}
 	public Park getPark() {

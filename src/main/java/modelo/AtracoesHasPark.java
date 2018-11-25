@@ -1,12 +1,12 @@
 package modelo;
 
 public class AtracoesHasPark {
-	private Atracoes atraoes;
+	private Atracao atraoes;
 	private Park park;
-	public Atracoes getAtraoes() {
+	public Atracao getAtraoes() {
 		return atraoes;
 	}
-	public void setAtraoes(Atracoes atraoes) {
+	public void setAtraoes(Atracao atraoes) {
 		this.atraoes = atraoes;
 	}
 	public Park getPark() {
