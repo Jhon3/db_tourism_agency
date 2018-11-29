@@ -1,20 +1,20 @@
 package modelo;
 
-public class Atracoes {
+public class Atracao {
 	
-	private int idAtracoes;
+	private int idAtracao;
 	private String nome;
 	private String descricao;
 	private int idadeMinima;
-	private int limitePessoa;
+	private int limitePessoas;
 	private String horarioAbertura;
-	private String horarioEncerrameto;
+	private String horarioEncerramento;
 	private float alturaMinima;
-	public int getIdAtracoes() {
-		return idAtracoes;
+	public int getIdAtracao() {
+		return idAtracao;
 	}
-	public void setIdAtracoes(int idAtracoes) {
-		this.idAtracoes = idAtracoes;
+	public void setIdAtracao(int idAtracao) {
+		this.idAtracao = idAtracao;
 	}
 	public String getNome() {
 		return nome;
@@ -34,11 +34,11 @@ public class Atracoes {
 	public void setIdadeMinima(int idadeMinima) {
 		this.idadeMinima = idadeMinima;
 	}
-	public int getLimitePessoa() {
-		return limitePessoa;
+	public int getLimitePessoas() {
+		return limitePessoas;
 	}
-	public void setLimitePessoa(int limitePessoa) {
-		this.limitePessoa = limitePessoa;
+	public void setLimitePessoas(int limitePessoas) {
+		this.limitePessoas = limitePessoas;
 	}
 	public String getHorarioAbertura() {
 		return horarioAbertura;
@@ -46,11 +46,11 @@ public class Atracoes {
 	public void setHorarioAbertura(String horarioAbertura) {
 		this.horarioAbertura = horarioAbertura;
 	}
-	public String getHorarioEncerrameto() {
-		return horarioEncerrameto;
+	public String getHorarioEncerramento() {
+		return horarioEncerramento;
 	}
-	public void setHorarioEncerrameto(String horarioEncerrameto) {
-		this.horarioEncerrameto = horarioEncerrameto;
+	public void setHorarioEncerramento(String horarioEncerrameto) {
+		this.horarioEncerramento = horarioEncerrameto;
 	}
 	public float getAlturaMinima() {
 		return alturaMinima;
@@ -58,6 +58,7 @@ public class Atracoes {
 	public void setAlturaMinima(float alturaMinima) {
 		this.alturaMinima = alturaMinima;
 	}
+	
 	
 	
 }

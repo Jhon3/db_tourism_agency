@@ -1,6 +1,6 @@
 package modelo;
 
-public class Restaurantes {
+public class Restaurante {
 	
 	private int idRestaurante;
 	private String nome;
@@ -10,6 +10,7 @@ public class Restaurantes {
 	private String faixaPrecos;
 	private String horarioAbertura;
 	private String horarioEncerramento;
+	
 	public int getIdRestaurante() {
 		return idRestaurante;
 	}

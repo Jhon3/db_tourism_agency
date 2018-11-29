@@ -4,7 +4,16 @@ public class Pacote {
 	
 	private int idPacote;
 	private int qtdPessoas;
+	private String nome;
 	private Park park;
+	
+	
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	public int getIdPacote() {
 		return idPacote;
 	}

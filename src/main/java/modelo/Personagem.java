@@ -1,17 +1,17 @@
 package modelo;
 
-public class Personagens {
+public class Personagem {
 	
-	private int idPersonagens;
+	private int idPersonagem;
 	private String nome;
 	private String animacao;
-	private Eventos eventos;
-	private Atracoes atracoes;
-	public int getIdPersonagens() {
-		return idPersonagens;
+	private Evento eventos;
+	private Atracao atracoes;
+	public int getIdPersonagem() {
+		return idPersonagem;
 	}
-	public void setIdPersonagens(int idPersonagens) {
-		this.idPersonagens = idPersonagens;
+	public void setIdPersonagem(int idPersonagem) {
+		this.idPersonagem = idPersonagem;
 	}
 	public String getNome() {
 		return nome;
@@ -25,16 +25,16 @@ public class Personagens {
 	public void setAnimacao(String animacao) {
 		this.animacao = animacao;
 	}
-	public Eventos getEventos() {
+	public Evento getEventos() {
 		return eventos;
 	}
-	public void setEventos(Eventos eventos) {
+	public void setEventos(Evento eventos) {
 		this.eventos = eventos;
 	}
-	public Atracoes getAtracoes() {
+	public Atracao getAtracoes() {
 		return atracoes;
 	}
-	public void setAtracoes(Atracoes atracoes) {
+	public void setAtracoes(Atracao atracoes) {
 		this.atracoes = atracoes;
 	}
 	
