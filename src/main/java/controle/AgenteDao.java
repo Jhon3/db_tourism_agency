@@ -72,7 +72,7 @@ public class AgenteDao {
 		System.out.println("Agente " + agente.getPessoa().getNome()+ " deletado(a).");
 		
 		try {
-			pessoaDao.deletarPessoa(agente.getPessoa()); //deletar primeiro a pessoa no Banco
+			pessoaDao.deletarPessoa(agente.getPessoa()); 
 		} catch(SQLException e) {
 			System.out.println("Problema para deletar na tabela Pessoa: " + e.getMessage());
 		}

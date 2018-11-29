@@ -78,7 +78,7 @@ public class Local_Dao {
 		String cidade = localCidade;
 		PreparedStatement pst = null; 
 		ResultSet rs = null;
-		String sql = "Select idLocal_ From Local_ Where email like '%" + cidade + "%'";
+		String sql = "Select idLocal_ From Local_ Where cidade =" + cidade;
 		pst = conn.prepareStatement(sql);
 		rs = pst.executeQuery();
 		while(rs.next()){

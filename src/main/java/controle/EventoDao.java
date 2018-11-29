@@ -25,10 +25,9 @@ public class EventoDao {
 		
 		int idPark = 0;
 		try {
-			parkDao.inserirPark(evento.getPark()); 
 			idPark = parkDao.buscarIdPark(evento.getPark().getNome()); //apos inserir, pegar o ID
 		} catch(SQLException e) {
-				System.out.println("Problema ao inserir na tabela Park");
+				System.out.println("Problema ao acessar a tabela Park");
 			}
 		String sql = "Insert into Evento values(default, ?, ?, ?, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
@@ -46,10 +45,9 @@ public class EventoDao {
 	public void alterarEvento(Evento evento) throws SQLException{
 		int idPark = 0;
 		try {
-			parkDao.alterarPark(evento.getPark()); 
 			idPark = parkDao.buscarIdPark(evento.getPark().getNome()); //apos inserir, pegar o ID
 		} catch(SQLException e) {
-				System.out.println("Problema ao alterar a tabela Park");
+				System.out.println("Problema ao acessar a tabela Park");
 			}
 		String sql = "update Evento set nome = ?, descricao = ?, idade_indicacao = ?, tipo_evento = ? where idPark = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);

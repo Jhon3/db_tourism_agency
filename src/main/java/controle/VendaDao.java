@@ -1,6 +1,7 @@
 package controle;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import modelo.Venda;
 import modelo.Cliente;
+import modelo.Pacote;
 import modelo.Agente;
 
 public class VendaDao {
@@ -24,58 +26,87 @@ public class VendaDao {
 		clienteDao = new ClienteDao();
 	}
 	
-	public void inserirVenda(Venda Venda) throws SQLException {
+	public void inserirVenda(Venda venda) throws SQLException {
 		
-		int idcliente = 0;
+		int idCliente = 0;
+		int idAgente = 0;
+		int idPacote = 0;
 		try {
-			clienteDao.inserirCliente(Venda.getCliente()); 
-			idcliente = clienteDao.buscarIdCliente(Venda.getCliente().getPessoa().getNome()); //apos inserir, pegar o ID
+			idCliente = clienteDao.buscarIdCliente(venda.getCliente().getCpf()); 
 		} catch(SQLException e) {
-				System.out.println("Problema ao inserir na tabela cliente");
-			}
+				System.out.println("Problema ao acessar a tabela cliente");
+		}
+		
+		try {
+			idAgente = agenteDao.buscarIdAgente(venda.getAgente().getCnpj()); 
+		} catch(SQLException e) {
+				System.out.println("Problema ao acessar a tabela agente");
+		}
+		
+		try {
+			idPacote = pacoteDao.buscarIdPacote(venda.getPacote().getNome()); 
+		} catch(SQLException e) {
+				System.out.println("Problema ao acessar a tabela pacote");
+		}
+		
 		String sql = "Insert into Venda values(default, ?, ?, ?, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
-		pst.setString(1, Venda.getNome());
-		pst.setString(2, Venda.getDescricao());
-		pst.setInt(3, Venda.getIdadeIndicacao());
-		pst.setString(4, Venda.getTipoVenda());
-		pst.setInt(5, idcliente);
+		pst.setDate(1, (Date) venda.getDataVenda());
+		pst.setFloat(2, venda.getValor());
+		pst.setInt(3, idCliente);
+		pst.setInt(4, idAgente);
+		pst.setInt(5, idPacote);
+		
 		pst.execute();
 		conn.commit();
 		pst.close();
-		System.out.println("Venda " + Venda.getNome()+ " cadastrado(a).");
+		System.out.println("Venda cadastrada.");
 	}
 	
-	public void alterarVenda(Venda Venda) throws SQLException{
-		int idcliente = 0;
+	public void alterarVenda(Venda venda) throws SQLException{
+		int idCliente = 0;
+		int idAgente = 0;
+		int idPacote = 0;
 		try {
-			clienteDao.alterarcliente(Venda.getcliente()); 
-			idcliente = clienteDao.buscarIdcliente(Venda.getcliente().getNome()); //apos inserir, pegar o ID
+			idCliente = clienteDao.buscarIdCliente(venda.getCliente().getCpf()); 
 		} catch(SQLException e) {
-				System.out.println("Problema ao alterar a tabela cliente");
-			}
-		String sql = "update Venda set nome = ?, descricao = ?, idade_indicacao = ?, tipo_Venda = ? where idcliente = ?";
+				System.out.println("Problema ao acessar a tabela cliente");
+		}
+		
+		try {
+			idAgente = agenteDao.buscarIdAgente(venda.getAgente().getCnpj()); 
+		} catch(SQLException e) {
+				System.out.println("Problema ao acessar a tabela agente");
+		}
+		
+		try {
+			idPacote = pacoteDao.buscarIdPacote(venda.getPacote().getNome()); 
+		} catch(SQLException e) {
+				System.out.println("Problema ao acessar a tabela pacote");
+		}
+		
+		String sql = "update Venda set data_venda =?, valor =?, idCliente, idAgente, idPacote where idVenda = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, Venda.getNome());
-		pstmt.setString(2, Venda.getDescricao());
-		pstmt.setInt(3, Venda.getIdadeIndicacao());
-		pstmt.setString(4, Venda.getTipoVenda());
-		pstmt.setInt(5, idcliente);
+		pstmt.setDate(1, (Date) venda.getDataVenda());
+		pstmt.setFloat(2, venda.getValor());
+		pstmt.setInt(3, idCliente);
+		pstmt.setInt(4, idAgente);
+		pstmt.setInt(5, idPacote);
 		
 		pstmt.execute();
 		conn.commit();
 		pstmt.close();
-		System.out.println("Venda " + Venda.getNome()+ " alterado(a).");
+		System.out.println("Venda alterado(a).");
 	}
 	
-	public void deletarVenda(Venda Venda) throws SQLException{
+	public void deletarVenda(Venda venda) throws SQLException{
 		String sql = "delete from Venda where idVenda = ? ";
 		PreparedStatement pstmt = conn.prepareStatement(sql); 
-		pstmt.setInt(1, Venda.getIdVenda());
+		pstmt.setInt(1, venda.getIdVenda());
 		pstmt.execute();
 		conn.commit();
 		pstmt.close();
-		System.out.println("Venda " + Venda.getNome()+ " deletado(a).");
+		System.out.println("Venda deletado(a).");
 	}
 	
 	
@@ -83,30 +114,46 @@ public class VendaDao {
 		PreparedStatement pst = null;
 		ResultSet rs = null; 
 		pst = conn.prepareStatement("Select * from Venda");
-		List<Venda> Vendas = new ArrayList<Venda>();
+		List<Venda> vendas = new ArrayList<Venda>();
 		rs = pst.executeQuery(); 
 		
 		while(rs.next()){ 
-			Venda e = new Venda();
-			e.setNome(rs.getString("nome"));
-			e.setDescricao(rs.getString("descricao"));
-			e.setIdadeIndicacao(rs.getInt("idade_indicacao"));
-			e.setTipoVenda(rs.getString("tipo_Venda"));
-			e.setIdVenda(rs.getInt("idVenda"));
-			cliente cliente = clienteDao.buscarclientePorId(rs.getInt("idcliente"));
-			e.setcliente(cliente);
-			Vendas.add(e);
+			Venda v = new Venda();
+			v.setDataVenda(rs.getDate("data_venda"));
+			v.setValor(rs.getFloat("valor"));
+			v.setIdVenda(rs.getInt("idVenda"));
+			Cliente cliente = clienteDao.buscarClientePorId(rs.getInt("idcliente"));
+			Agente agente = agenteDao.buscarAgentePorId(rs.getInt("idagente"));
+			Pacote pacote = pacoteDao.buscarPacotePorId(rs.getInt("idPacote"));
+			v.setCliente(cliente);
+			v.setAgente(agente);
+			v.setPacote(pacote);
+			vendas.add(v);
 		}
-		return Vendas;
+		return vendas;
 	}
 	
 	
-	public int buscarIdVenda(String VendaNome) throws SQLException {
+	public int buscarIdVenda(Date data_venda, Cliente cliente, Agente agente) throws SQLException {
+		int idCliente = 0;
+		int idAgente = 0;
+		
+		try {
+			idCliente = clienteDao.buscarIdCliente(cliente.getCpf()); 
+		} catch(SQLException e) {
+				System.out.println("Problema ao acessar a tabela cliente");
+		}
+		
+		try {
+			idAgente = agenteDao.buscarIdAgente(agente.getCnpj()); 
+		} catch(SQLException e) {
+				System.out.println("Problema ao acessar a tabela agente");
+		}
+		
 		int id=0;
-		String nome = VendaNome;
 		PreparedStatement pst = null; 
 		ResultSet rs = null;
-		String sql = "Select idVenda From Venda Where nome like '%" + nome + "%'";
+		String sql = "Select idVenda From Venda Where data_venda=" + data_venda +" AND idCliente=" +idCliente+ " AND idAgente=" +idAgente;
 		pst = conn.prepareStatement(sql);
 		rs = pst.executeQuery();
 		while(rs.next()){
@@ -118,32 +165,32 @@ public class VendaDao {
 	public Venda buscarVendaPorId(int idVenda) throws SQLException {
 		int id = idVenda;
 		Venda Venda = new Venda();
-		cliente cliente = new cliente();
+		Cliente cliente = new Cliente();
+		Agente agente = new Agente();
+		Pacote pacote = new Pacote();
 		
-		String nome = null;
-		String descricao = null;
-		int idade_indicacao = 0;
-		String tipo_Venda = null;
+		Date data_venda = null;
+		float valor = 0;
 		
 		PreparedStatement pst = null; 
 		ResultSet rs = null;
-		String sql = "Select nome, descricao, idade_indicacao, tipo_Venda, idcliente From Venda Where idVenda ="+ id;
+		String sql = "Select data_venda, valor, idCliente,  idAgente, idPacote Where idVenda ="+ id;
 
 		pst = conn.prepareStatement(sql);
 		rs = pst.executeQuery();
 		while(rs.next()){
-			nome = rs.getString("nome");
-			descricao = rs.getString("descricao");
-			idade_indicacao = rs.getInt("idade_indicacao");
-			tipo_Venda = rs.getString("tipo_Venda");
-			cliente = clienteDao.buscarclientePorId(rs.getInt("idcliente"));
+			data_venda = rs.getDate("data_venda");
+			valor = rs.getFloat("valor");
+			agente = agenteDao.buscarAgentePorId(rs.getInt("idAgente"));
+			pacote = pacoteDao.buscarPacotePorId(rs.getInt("idPacote"));
+			cliente = clienteDao.buscarClientePorId(rs.getInt("idCliente"));
 		}
-		Venda.setNome(nome);
+		Venda.setDataVenda(data_venda);
 		Venda.setIdVenda(id);
-		Venda.setIdadeIndicacao(idade_indicacao);
-		Venda.setDescricao(descricao);
-		Venda.setTipoVenda(tipo_Venda);
-		Venda.setcliente(cliente);
+		Venda.setValor(valor);
+		Venda.setAgente(agente);
+		Venda.setPacote(pacote);
+		Venda.setCliente(cliente);
 		
 		return Venda;
 	}
