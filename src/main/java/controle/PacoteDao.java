@@ -23,12 +23,8 @@ public class PacoteDao {
 	
 	public void inserirPacote(Pacote pacote) throws SQLException {  
 		
-		int idPark = 0;
-		try {
-			idPark = parkDao.buscarIdPark(pacote.getPark().getNome()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela Park");
-			}
+		int idPark = pacote.getPark().getIdPark();
+
 		String sql = "Insert into Pacote values(default, ?, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
 		pst.setInt(1, pacote.getQtdPessoas());
@@ -41,12 +37,8 @@ public class PacoteDao {
 	}
 	
 	public void alterarPacote(Pacote pacote) throws SQLException{
-		int idPark = 0;
-		try {
-			idPark = parkDao.buscarIdPark(pacote.getPark().getNome()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela Park");
-			}
+		int idPark = pacote.getPark().getIdPark();
+
 		String sql = "update Pacote set qtdpessoas = ?, idPark = ?, nome = ? where idPacote = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, pacote.getQtdPessoas());

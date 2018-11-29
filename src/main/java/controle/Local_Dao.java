@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modelo.Local_;
-import modelo.Local_;
 
 public class Local_Dao {
 	

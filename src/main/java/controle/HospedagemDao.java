@@ -23,12 +23,8 @@ public class HospedagemDao {
 	
 	public void inserirHospedagem(Hospedagem hospedagem) throws SQLException {
 		
-		int idPark = 0;
-		try { 
-			idPark = parkDao.buscarIdPark(hospedagem.getPark().getNome()); //apos inserir, pegar o ID
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela Park");
-			}
+		int idPark = hospedagem.getPark().getIdPark();
+
 		String sql = "Insert into Hospedagem values(default, ?, ?, ?, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
 		pst.setString(1, hospedagem.getNome());
@@ -43,12 +39,8 @@ public class HospedagemDao {
 	}
 	
 	public void alterarHospedagem(Hospedagem hospedagem) throws SQLException{
-		int idPark = 0;
-		try {
-			idPark = parkDao.buscarIdPark(hospedagem.getPark().getNome()); //apos inserir, pegar o ID
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela Park");
-			}
+		int idPark = hospedagem.getPark().getIdPark();
+
 		String sql = "update Hospedagem set preco_noite = ?, tipo_hotel = ?,  transporte_acesso = ?, idPark = ? where nome = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(5, hospedagem.getNome());

@@ -24,12 +24,8 @@ public class VooDao {
 	
 	public void inserirVoo(Voo voo) throws SQLException {
 		
-		int idPacote = 0;
-		try {
-			idPacote = PacoteDao.buscarIdPacote(voo.getPacote().getNome()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela Pacote");
-			}
+		int idPacote = voo.getPacote().getIdPacote();
+
 		String sql = "Insert into Voo values(default, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
 		pst.setString(1, voo.getAgenciaVoo());
@@ -45,12 +41,8 @@ public class VooDao {
 	}
 	
 	public void alterarVoo(Voo voo) throws SQLException{
-		int idPacote = 0;
-		try {
-			idPacote = PacoteDao.buscarIdPacote(voo.getPacote().getNome()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela Pacote");
-			}
+		int idPacote = voo.getPacote().getIdPacote();
+		
 		String sql = "update Voo set agencia_voo = ?, tempo_estimado = ?, modelo_aviao = ?, data_ida = ?, data_volta = ? where idVoo = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, voo.getAgenciaVoo());

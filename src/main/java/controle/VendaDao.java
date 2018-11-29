@@ -28,26 +28,9 @@ public class VendaDao {
 	
 	public void inserirVenda(Venda venda) throws SQLException {
 		
-		int idCliente = 0;
-		int idAgente = 0;
-		int idPacote = 0;
-		try {
-			idCliente = clienteDao.buscarIdCliente(venda.getCliente().getCpf()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela cliente");
-		}
-		
-		try {
-			idAgente = agenteDao.buscarIdAgente(venda.getAgente().getCnpj()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela agente");
-		}
-		
-		try {
-			idPacote = pacoteDao.buscarIdPacote(venda.getPacote().getNome()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela pacote");
-		}
+		int idCliente = venda.getCliente().getIdCliente();
+		int idAgente = venda.getAgente().getIdAgente();
+		int idPacote = venda.getPacote().getIdPacote();
 		
 		String sql = "Insert into Venda values(default, ?, ?, ?, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
@@ -64,26 +47,9 @@ public class VendaDao {
 	}
 	
 	public void alterarVenda(Venda venda) throws SQLException{
-		int idCliente = 0;
-		int idAgente = 0;
-		int idPacote = 0;
-		try {
-			idCliente = clienteDao.buscarIdCliente(venda.getCliente().getCpf()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela cliente");
-		}
-		
-		try {
-			idAgente = agenteDao.buscarIdAgente(venda.getAgente().getCnpj()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela agente");
-		}
-		
-		try {
-			idPacote = pacoteDao.buscarIdPacote(venda.getPacote().getNome()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela pacote");
-		}
+		int idCliente = venda.getCliente().getIdCliente();
+		int idAgente = venda.getAgente().getIdAgente();
+		int idPacote = venda.getPacote().getIdPacote();
 		
 		String sql = "update Venda set data_venda =?, valor =?, idCliente, idAgente, idPacote where idVenda = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -135,21 +101,9 @@ public class VendaDao {
 	
 	
 	public int buscarIdVenda(Date data_venda, Cliente cliente, Agente agente) throws SQLException {
-		int idCliente = 0;
-		int idAgente = 0;
-		
-		try {
-			idCliente = clienteDao.buscarIdCliente(cliente.getCpf()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela cliente");
-		}
-		
-		try {
-			idAgente = agenteDao.buscarIdAgente(agente.getCnpj()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela agente");
-		}
-		
+		int idCliente = cliente.getIdCliente();
+		int idAgente = agente.getIdAgente();
+
 		int id=0;
 		PreparedStatement pst = null; 
 		ResultSet rs = null;

@@ -23,12 +23,8 @@ public class ParkDao {
 	
 	public void inserirPark(Park park) throws SQLException {
 		
-		int idLocal_ = 0;
-		try {
-			idLocal_ = local_Dao.buscarIdLocal_(park.getLocal_().getCidade());
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela Local_");
-			}
+		int idLocal_ = park.getLocal_().getIdLocal_();
+
 		String sql = "Insert into Park values(default, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
 		pst.setString(1, park.getNome());
@@ -40,12 +36,8 @@ public class ParkDao {
 	}
 	
 	public void alterarPark(Park park) throws SQLException{
-		int idLocal_ = 0;
-		try {
-			idLocal_ = local_Dao.buscarIdLocal_(park.getLocal_().getCidade()); 
-		} catch(SQLException e) {
-				System.out.println("Problema ao acessar a tabela Local_");
-			}
+		int idLocal_ = park.getLocal_().getIdLocal_();
+
 		String sql = "update Park set nome = ? where idLocal_ = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, park.getNome());

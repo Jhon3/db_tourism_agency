@@ -5,8 +5,9 @@ public class Personagem {
 	private int idPersonagem;
 	private String nome;
 	private String animacao;
-	private Evento eventos;
-	private Atracao atracoes;
+	private Evento evento;
+	private Atracao atracao;
+	
 	public int getIdPersonagem() {
 		return idPersonagem;
 	}
@@ -25,17 +26,17 @@ public class Personagem {
 	public void setAnimacao(String animacao) {
 		this.animacao = animacao;
 	}
-	public Evento getEventos() {
-		return eventos;
+	public Evento getEvento() {
+		return evento;
 	}
-	public void setEventos(Evento eventos) {
-		this.eventos = eventos;
+	public void setEvento(Evento evento) {
+		this.evento = evento;
 	}
-	public Atracao getAtracoes() {
-		return atracoes;
+	public Atracao getAtracao() {
+		return atracao;
 	}
-	public void setAtracoes(Atracao atracoes) {
-		this.atracoes = atracoes;
+	public void setAtracao(Atracao atracao) {
+		this.atracao = atracao;
 	}
 	
 	
