@@ -12,12 +12,12 @@ import modelo.Atracao;
 public class AtracaoDao {
 	
 	private Connection conn;
-	private ParkDao parkDao;
+	//private ParkDao parkDao;
 	
 	public AtracaoDao() throws SQLException{
 		conn = Conexao.getConnection();
 		conn.setAutoCommit(false);
-		parkDao = new ParkDao();
+		//parkDao = new ParkDao();
 	}
 	
 	public void inserirAtracao(Atracao atracao) throws SQLException {
@@ -88,6 +88,7 @@ public class AtracaoDao {
 		return atracoes;
 	}
 	
+	/*
 	
 	public int buscarIdAtracao(String atracaoNome, String nomePark) throws SQLException {
 		int idPark = parkDao.buscarIdPark(nomePark);
@@ -102,7 +103,7 @@ public class AtracaoDao {
 		}
 		return id;
 	}
-	
+	*/
 	public Atracao buscarAtracaoPorId(int idAtracao) throws SQLException {
 		Atracao atracao = new Atracao();
 		int id = idAtracao;

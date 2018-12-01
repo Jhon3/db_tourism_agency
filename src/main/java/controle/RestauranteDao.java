@@ -11,12 +11,12 @@ import modelo.Restaurante;
 public class RestauranteDao {
 	
 	private Connection conn;
-	private ParkDao parkDao;
+	//private ParkDao parkDao;
 	
 	public RestauranteDao() throws SQLException{
 		conn = Conexao.getConnection();
 		conn.setAutoCommit(false);
-		parkDao = new ParkDao();
+		//parkDao = new ParkDao();
 	}
 	
 	public void inserirRestaurante(Restaurante restaurante) throws SQLException {
@@ -86,7 +86,7 @@ public class RestauranteDao {
 		return restaurantes;
 	}
 	
-	
+	/*
 	public int buscarRestaurante(String restauranteNome, String nomePark) throws SQLException {
 		int idPark = parkDao.buscarIdPark(nomePark);
 		int id=0;
@@ -100,7 +100,7 @@ public class RestauranteDao {
 		}
 		return id;
 	}
-	
+	*/
 	public Restaurante buscarRestaurantePorId(int idRestaurante) throws SQLException {
 		Restaurante restaurante = new Restaurante();
 		int id = idRestaurante;
