@@ -1,17 +1,27 @@
 package modelo;
 
-public class Eventos {
+public class Evento {
 	
-	private int idEventos;
+	private int idEvento;
 	private String nome;
+	private String descricao;
 	private int idadeIndicacao;
 	private String tipoEvento;
 	private Park park;
-	public int getIdEventos() {
-		return idEventos;
+	
+	
+	
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setIdEventos(int idEventos) {
-		this.idEventos = idEventos;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	public int getIdEvento() {
+		return idEvento;
+	}
+	public void setIdEvento(int idEventos) {
+		this.idEvento = idEventos;
 	}
 	public String getNome() {
 		return nome;
@@ -37,6 +47,4 @@ public class Eventos {
 	public void setPark(Park park) {
 		this.park = park;
 	}
-	
-	
 }

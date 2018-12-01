@@ -6,7 +6,6 @@ public class Venda {
 	
 	private int idVenda;
 	private Date dataVenda;
-	private float valor;
 	private Cliente cliente;
 	private Agente agente;
 	private Pacote pacote;
@@ -22,12 +21,7 @@ public class Venda {
 	public void setDataVenda(Date dataVenda) {
 		this.dataVenda = dataVenda;
 	}
-	public float getValor() {
-		return valor;
-	}
-	public void setValor(float valor) {
-		this.valor = valor;
-	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
