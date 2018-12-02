@@ -114,36 +114,4 @@ public class PessoaDao {
 		return pessoa;
 	}
 	
-	
-	public static void main(String[] args) throws SQLException {
-		/*
-		PessoaDao pessoaDao = new PessoaDao();
-		
-		Pessoa pessoa1 = new Pessoa();
-		pessoa1.setNome("jhon");
-		pessoa1.setEmail("jhon@gmail.com");
-		pessoa1.setTelefone("000000000");
-		pessoaDao.inserirPessoa(pessoa1);
-		
-		pessoa2.setNome("daniel");
-		pessoa2.setEmail("daniel@gmail.com");
-		pessoa2.setTelefone("1111111111");
-		pessoaDao.inserirPessoa(pessoa2);
-		*/
-		//pessoa.setNome("jhon1");
-		//pessoaDao.alterarPessoa(pessoa);
-		//pessoaDao.deletarPessoa(pessoa);
-		
-		/*
-		ArrayList<Pessoa> list = (ArrayList<Pessoa>) pessoaDao.listar();
-		for(Pessoa p: list) {
-			System.out.println(p.getNome() + " --- ");
-		}
-		
-		
-		int idJhon = pessoaDao.buscarPessoa("jhon@gmail.com");
-		System.out.println(idJhon);
-		*/
-		
-	}
 }

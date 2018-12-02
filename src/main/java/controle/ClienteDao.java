@@ -135,33 +135,4 @@ public class ClienteDao {
 		return Cliente;
 	}
 	
-	public static void main(String[] args) throws SQLException {
-		ClienteDao clienteDao = new ClienteDao();
-		
-		Pessoa pessoa1 = new Pessoa();
-		pessoa1.setNome("Carlos");
-		pessoa1.setEmail("carlos@gmail.com");
-		pessoa1.setTelefone("11111111");
-		
-		
-		Cliente cliente1 = new Cliente();
-		cliente1.setPessoa(pessoa1);
-		cliente1.setCpf("111111111111");
-		
-		//clienteDao.inserirCliente(cliente1);
-		clienteDao.deletarCliente(cliente1);
-		
-		/*
-		ArrayList<Cliente> Clientes = (ArrayList<Cliente>) ClienteDao.listar();
-		
-		for(Cliente a : Clientes) {
-			System.out.println(a.getPessoa().getNome()+ "---");
-		}
-		*/
-		//System.out.println(ClienteDao.buscarIdCliente(Cliente1.getcpf()));
-		//Cliente Cliente2 = ClienteDao.buscarClientePorId(7);
-		//System.out.println(Cliente2.getPessoa().getNome());
-		
-		
-	}
 }

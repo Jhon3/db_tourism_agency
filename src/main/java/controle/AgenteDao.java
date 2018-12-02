@@ -135,34 +135,5 @@ public class AgenteDao {
 		
 		return agente;
 	}
-	
-	public static void main(String[] args) throws SQLException {
-		AgenteDao agenteDao = new AgenteDao();
 		
-		Pessoa pessoa1 = new Pessoa();
-		pessoa1.setNome("Daniel");
-		pessoa1.setEmail("daniel@gmail.com");
-		pessoa1.setTelefone("111111111");
-		
-		
-		Agente agente1 = new Agente();
-		agente1.setPessoa(pessoa1);
-		agente1.setCnpj("111111111111");
-		//agenteDao.inserirAgente(agente1);
-		agenteDao.deletarAgente(agente1);
-		
-		
-		/*
-		ArrayList<Agente> agentes = (ArrayList<Agente>) agenteDao.listar();
-		
-		for(Agente a : agentes) {
-			System.out.println(a.getPessoa().getNome()+ "---");
-		}
-		*/
-		//System.out.println(agenteDao.buscarIdAgente(agente1.getCnpj()));
-		//Agente agente2 = agenteDao.buscarAgentePorId(7);
-		//System.out.println(agente2.getPessoa().getNome());
-		
-		
-	}
 }

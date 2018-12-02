@@ -143,10 +143,10 @@ public class RestauranteDao {
 		return restaurante;
 	}
 	
-	
+	/*
 	public static void main(String[] args) throws SQLException {
 		
-		/*
+		
 		RestauranteDao RestauranteDao = new RestauranteDao();
 		
 		Restaurante Restaurante1 = new Restaurante();
@@ -189,6 +189,6 @@ public class RestauranteDao {
 		/*
 		int idJhon = RestauranteDao.buscarRestaurante("castelo");
 		System.out.println(idJhon);
-		*/
-	}
+		
+	}*/
 }

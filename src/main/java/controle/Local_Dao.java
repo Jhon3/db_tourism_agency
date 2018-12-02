@@ -112,37 +112,4 @@ public class Local_Dao {
 		return local_;
 	}
 	
-	
-	
-	public static void main(String[] args) throws SQLException {
-		/*
-		Local_Dao Local_Dao = new Local_Dao();
-		
-		Local_ Local_1 = new Local_();
-		Local_1.setNome("jhon");
-		Local_1.setEmail("jhon@gmail.com");
-		Local_1.setTelefone("000000000");
-		Local_Dao.inserirLocal_(Local_1);
-		
-		Local_2.setNome("daniel");
-		Local_2.setEmail("daniel@gmail.com");
-		Local_2.setTelefone("1111111111");
-		Local_Dao.inserirLocal_(Local_2);
-		*/
-		//Local_.setNome("jhon1");
-		//Local_Dao.alterarLocal_(Local_);
-		//Local_Dao.deletarLocal_(Local_);
-		
-		/*
-		ArrayList<Local_> list = (ArrayList<Local_>) Local_Dao.listar();
-		for(Local_ p: list) {
-			System.out.println(p.getNome() + " --- ");
-		}
-		
-		
-		int idJhon = Local_Dao.buscarLocal_("jhon@gmail.com");
-		System.out.println(idJhon);
-		*/
-		
-	}
 }
