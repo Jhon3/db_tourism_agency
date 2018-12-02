@@ -8,6 +8,7 @@ public class Hospedagem {
 	private String tipoHotel;
 	private String transporteAcesso;
 	private Park park;
+	
 	public int getIdHospedagem() {
 		return idHospedagem;
 	}
