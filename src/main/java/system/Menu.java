@@ -243,6 +243,7 @@ public class Menu {
 	}
 	
 	public void listarVendas() {
+		/*
 		ArrayList<Venda> vendas;
 		try {
 			vendas = (ArrayList<Venda>) vendaDao.listar();
@@ -254,7 +255,7 @@ public class Menu {
 			System.out.println("Nao foi possivel listar vendas!");
 		}
 
-		
+		*/
 	}
 	public void deletarVenda() {
 		/*
@@ -272,7 +273,66 @@ public class Menu {
 	}
 	
 	public void editarVenda() {
-		
+	/*
+		String dataString=null;
+		Date data = new Date();
+        DateFormat dataFormat=DateFormat.getInstance();
+	    
+		Pacote pacote = new Pacote();
+		Agente agente = new Agente();
+		Cliente cliente = new Cliente();
+		System.out.println("Insira o ID da venda que deseja editar: ");
+		int idVenda = entrada.nextInt();
+		try {
+			Venda venda = vendaDao.buscarVendaPorId(idVenda);
+			System.out.println("Insira a data da venda no formato DD/MM/YY: ");
+			dataString = entrada.nextLine();
+	        try {
+	            data= dataFormat.parse(dataString);
+	    		try {
+					
+	    			ArrayList<Cliente> clientes = (ArrayList<Cliente>) clienteDao.listar();
+	    			for(Cliente c: clientes) {
+	    				System.out.println(c.getIdCliente() + ". " + c.getPessoa().getNome() + " >CPF: " + c.getCpf());
+	    			}
+	    			System.out.println("Por favor, insira o ID de um dos clientes listados acima: ");
+	    			int idCliente = entrada.nextInt();
+	    			cliente = clienteDao.buscarClientePorId(idCliente);
+	    			
+	    			ArrayList<Agente> agentes = (ArrayList<Agente>) agenteDao.listar();
+	    			for(Agente a: agentes) {
+	    				System.out.println(a.getIdAgente() + ". " + a.getPessoa().getNome() + " >CNPJ: " + a.getCnpj());
+	    			}
+	    			System.out.println("Por favor, insira o ID de um dos agentes listados acima: ");
+	    			int idAgente = entrada.nextInt();
+	    			agente = agenteDao.buscarAgentePorId(idAgente);
+	    			
+	    			ArrayList<Pacote> pacotes = (ArrayList<Pacote>) pacoteDao.listar();
+	    			for(Pacote p: pacotes) {
+	    				System.out.println(p.getIdPacote() + ". " + p.getNome() + " >Valor: " + p.getValor());
+	    			}
+	    			System.out.println("Por favor, insira o ID de um dos pacotes listados acima: ");
+	    			int idPacote = entrada.nextInt();
+	    			pacote = pacoteDao.buscarPacotePorId(idPacote);
+	
+	    			venda.setAgente(agente);
+	    			venda.setDataVenda(data);
+	    			venda.setCliente(cliente);
+	    			venda.setPacote(pacote);
+	    			
+	    			vendaDao.inserirVenda(venda);
+	    		} catch(SQLException e) {
+	    			System.out.println("Falha ao listar clientes ou agentes");
+	    		}
+	        } catch (ParseException ex) {
+	            System.out.println("Por favor, insira a data em um formato valido!");
+	            
+	        }
+		} catch(SQLException e) {
+			System.out.println("Erro ao editar venda!");
+			this.cadastrarVenda();
+		}
+	*/
 	}
 	
 	/*Métodos para o park*/
@@ -351,6 +411,32 @@ public class Menu {
 		}
 	}
 	
+	public void menuCliente() {
+		while(true) {
+			this.listarVendas();
+			System.out.println("1. Cadastrar cliente || 2. Deletar cliente || 3. Editar cliente || 4. Voltar || 5. Sair");
+			int c = entrada.nextInt();
+			
+			switch(c) {
+			case 1:
+				this.cadastrarVenda();
+				break;
+			case 2:
+				this.deletarVenda();
+				break;
+			case 3:
+				this.editarVenda();
+				break;
+			case 4:
+				this.menuGlobal();
+				break;
+			case 5:
+				System.exit(0);
+				break;
+			}
+		}
+	}
+	
 	
 	public void menuGlobal() {
 		while(true) {
@@ -363,12 +449,16 @@ public class Menu {
 				this.menuPacotes();
 				break;
 			case 2:
+				this.menuVenda();
 				break;
 			case 3:
+				this.menuCliente();
 				break;
 			case 4:
 				break;
 			case 5:
+				break;
+			case 6:
 				System.exit(0);
 				break;
 			}
