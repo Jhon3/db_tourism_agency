@@ -15,8 +15,8 @@ public class Cliente {
 	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(String cnpj) {
-		this.cpf = cnpj;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	public Pessoa getPessoa() {
 		return pessoa;

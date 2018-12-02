@@ -351,18 +351,90 @@ public class Menu {
 		*/
 	}
 	
-	public void cadastrarCliente() {
+	public void cadastrarCliente() { /*
 		Pessoa pessoa = new Pessoa();
-		//String nome = 
+		String nome = null;
+		String email = null;
+		String telefone = null;
+		Cliente cliente = new Cliente();
+		String cpf = null;
 		
+		System.out.println("Por favor, insira o nome: ");
+		nome = entrada.nextLine();
+		
+		System.out.println("Por favor, insira o email: ");
+		email = entrada.nextLine();
+		
+		System.out.println("Por favor, insira o telefone: ");
+		telefone = entrada.nextLine();
+		
+		System.out.println("Insira o cpf: ");
+		cpf = entrada.nextLine();
+		
+		pessoa.setNome(nome);
+		pessoa.setEmail(email);
+		pessoa.setTelefone(telefone);
+		
+		cliente.setCpf(cpf);
+		cliente.setPessoa(pessoa);
+		
+		try {
+			clienteDao.inserirCliente(cliente);
+		} catch(SQLException ex) {
+			System.out.println("Nao foi possivel inserir cliente!");
+		}
+		*/
 	}
 	
 	public void deletarCliente() {
+		/*
+		System.out.println("Por favor, insira o ID de um dos clientes listados acima: ");
+		int idCliente = entrada.nextInt();
 		
+		try {
+			Cliente cliente = clienteDao.buscarClientePorId(idCliente);
+			clienteDao.deletarCliente(cliente);
+		} catch(SQLException ex) {
+			System.out.println("Nao foi possivel deletar o cliente");
+		}
+		*/
 	}
 	
 	public void editarCliente() {
+		/*
+		System.out.println("Por favor, insira o ID do cliente que sera excluido: ");
+		int idCliente = entrada.nextInt();
+		String nome = null;
+		String email = null;
+		String telefone = null;
+		String cpf = null;
 		
+		try {
+		Cliente cliente = clienteDao.buscarClientePorId(idCliente);
+		Pessoa pessoa = cliente.getPessoa();
+		System.out.println("Por favor, insira o nome: ");
+		nome = entrada.nextLine();
+		
+		System.out.println("Por favor, insira o email: ");
+		email = entrada.nextLine();
+		
+		System.out.println("Por favor, insira o telefone: ");
+		telefone = entrada.nextLine();
+		
+		System.out.println("Insira o cpf: ");
+		cpf = entrada.nextLine();
+		
+		pessoa.setNome(nome);
+		pessoa.setEmail(email);
+		pessoa.setTelefone(telefone);
+		cliente.setCpf(cpf);
+		cliente.setPessoa(pessoa);
+		
+		clienteDao.alterarCliente(cliente);
+		} catch(SQLException ex) {
+			System.out.println("Erro ao editar cliente!");
+		}
+		*/
 	}
 	
 	/*Métodos para o park*/
