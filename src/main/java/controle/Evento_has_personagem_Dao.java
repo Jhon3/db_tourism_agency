@@ -26,7 +26,7 @@ public class Evento_has_personagem_Dao {
 		eventoDao = new EventoDao();
 	}
 
-	public void inserirPersonagemEmAtracao(int idEvento, int idPersonagem) throws SQLException {
+	public void inserirPersonagemEmEvento(int idEvento, int idPersonagem) throws SQLException {
 		
 		String sql = "Insert into Evento_has_personagem values(default, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
@@ -38,7 +38,7 @@ public class Evento_has_personagem_Dao {
 		System.out.println("Novo personagem cadastrado em evento.");
 	}
 	
-	public void alterarPersonagemEmAtracao(int newEvento, int newPersonagem, int oldIdEvento) throws SQLException{
+	public void alterarPersonagemEmEvento(int newEvento, int newPersonagem, int oldIdEvento) throws SQLException{
 		
 		String sql = "update Evento_has_personagem set idevento = ?, idpersonagem = ? where idEvento = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -52,7 +52,7 @@ public class Evento_has_personagem_Dao {
 		System.out.println("Alteração concluída");
 	}
 	
-	public void deletarPersonagemEmAtracao(int idEvento) throws SQLException{
+	public void deletarPersonagemEmEvento(int idEvento) throws SQLException{
 		String sql = "delete Evento_has_personagem where idEvento = ? ";
 		PreparedStatement pstmt = conn.prepareStatement(sql); 
 		pstmt.setInt(1, idEvento);

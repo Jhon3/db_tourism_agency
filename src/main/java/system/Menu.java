@@ -11,8 +11,10 @@ import java.util.Scanner;
 
 import controle.AgenteDao;
 import controle.AtracaoDao;
+import controle.Atracoes_has_personagem_Dao;
 import controle.ClienteDao;
 import controle.EventoDao;
+import controle.Evento_has_personagem_Dao;
 import controle.HospedagemDao;
 import controle.Local_Dao;
 import controle.PacoteDao;
@@ -24,9 +26,13 @@ import controle.Restaurantes_has_park_Dao;
 import controle.VendaDao;
 import controle.VooDao;
 import modelo.Agente;
+import modelo.Atracao;
 import modelo.Cliente;
+import modelo.Evento;
+import modelo.Hospedagem;
 import modelo.Pacote;
 import modelo.Park;
+import modelo.Personagem;
 import modelo.Pessoa;
 import modelo.Restaurante;
 import modelo.Venda;
@@ -44,6 +50,8 @@ public class Menu {
 	private PessoaDao pessoaDao;
 	private RestauranteDao restauranteDao;
 	private Restaurantes_has_park_Dao rest_has_park_Dao;
+	private Atracoes_has_personagem_Dao atra_has_person_Dao;
+	private Evento_has_personagem_Dao even_has_person_Dao;
 	private VendaDao vendaDao;
 	private VooDao vooDao;
 	private Scanner entrada;
@@ -460,6 +468,48 @@ public class Menu {
 	*/
 	}
 	
+	public void cadastrarEvento() throws NumberFormatException, SQLException { 
+		/*
+		Evento evento = new Evento();
+		
+		String nome = null;
+		String descricao = null;
+		String idadeIndicacao = null;
+		String tipoEvento = null;
+		
+		String idPark = null;
+		Park park = null;
+		
+		System.out.println("Nome do evento: ");
+		nome = entrada.nextLine();
+		
+		System.out.println("Descrição do evento: ");
+		descricao = entrada.nextLine();
+		
+		System.out.println("Informe a idade indicada para participar do evento: ");
+		idadeIndicacao = entrada.nextLine();
+		
+		System.out.println("Informe o tipo de evento: ");
+		tipoEvento = entrada.nextLine();
+		
+		System.out.println("Informe o número de identificação do park em que o evento ocorrerá: ");
+		idPark = entrada.nextLine();
+		park = parkDao.buscarParkPorId(Integer.parseInt(idPark));
+		
+		evento.setNome(nome);
+		evento.setDescricao(descricao);
+		evento.setIdadeIndicacao(Integer.parseInt(idadeIndicacao));
+		evento.setTipoEvento(tipoEvento);
+		evento.setPark(park);
+				
+		try {
+			eventoDao.inserirEvento(evento);
+		} catch(SQLException ex) {
+			System.out.println("Nao foi possivel inserir um novo evento no sistema!");
+		}
+		*/
+	}
+	
 	public void cadastrarRestaurante() { 
 		/*
 		Restaurante restaurante = new Restaurante();
@@ -522,6 +572,161 @@ public class Menu {
 		
 		try {
 			rest_has_park_Dao.inserirRestauranteEmPark(Integer.parseInt(idRestaurante), Integer.parseInt(idPark));
+		} catch(SQLException ex) {
+			System.out.println("Nao foi possivel efetuar este cadastro!");
+		}
+		*/
+	}
+		
+	public void cadastrarAtracao() { 
+		/*
+		Atracao atracao = new Atracao();
+		
+		String nome = null;
+		String descricao = null;
+		String idadeMinima = null;
+		String limitePessoas = null;
+		String horarioAbertura = null;
+		String horarioEncerramento = null;
+		String alturaMinima = null;
+		
+		System.out.println("Nome da atração: ");
+		nome = entrada.nextLine();
+		
+		System.out.println("Descrição da atração: ");
+		descricao = entrada.nextLine();
+		
+		System.out.println("Informe a idade mínima para brincar na atração: ");
+		idadeMinima = entrada.nextLine();
+		
+		System.out.println("Informe o limite de pessoas da atração: ");
+		limitePessoas = entrada.nextLine();
+		
+		System.out.println("Informe o horário de abertura: ");
+		horarioAbertura = entrada.nextLine();
+		
+		System.out.println("Informe o horário de encerramento: ");
+		horarioEncerramento = entrada.nextLine();
+		
+		System.out.println("Informe a altura mínima para brincar na atração: ");
+		alturaMinima = entrada.nextLine();
+		
+		atracao.setNome(nome);
+		atracao.setDescricao(descricao);
+		atracao.setIdadeMinima(Integer.parseInt(idadeMinima));
+		atracao.setLimitePessoas(Integer.parseInt(limitePessoas));
+		atracao.setHorarioAbertura(horarioAbertura);
+		atracao.setHorarioEncerramento(horarioEncerramento);
+		atracao.setAlturaMinima(Float.parseFloat(alturaMinima));
+		
+		try {
+			atracaoDao.inserirAtracao(atracao);
+		} catch(SQLException ex) {
+			System.out.println("Nao foi possivel inserir uma nova atração no sistema!");
+		}
+		*/
+	}
+	
+	public void cadastrarHospedagem() throws NumberFormatException, SQLException { 
+		
+		Hospedagem hospedagem = new Hospedagem();		
+		
+		String nome = null;
+		String precoNoite = null;
+		String tipoHotel = null;
+		String transporteAcesso = null;
+		
+		String idPark = null;
+		Park park = null;
+		
+		System.out.println("Nome da hospedagem: ");
+		nome = entrada.nextLine();
+		
+		System.out.println("Informe o preço por noite nesta hospedagem: ");
+		precoNoite = entrada.nextLine();
+		
+		System.out.println("Informe o tipo de hospedagem: ");
+		tipoHotel = entrada.nextLine();
+		
+		System.out.println("Informe a forma de acesso à hospedagem: ");
+		transporteAcesso = entrada.nextLine();
+		
+		System.out.println("Informe o número de identificação do park em que o evento ocorrerá: ");
+		idPark = entrada.nextLine();
+		park = parkDao.buscarParkPorId(Integer.parseInt(idPark));
+		
+		hospedagem.setNome(nome);
+		hospedagem.setPrecoNoite(Float.parseFloat(precoNoite));
+		hospedagem.setTipoHotel(tipoHotel);
+		hospedagem.setTransporteAcesso(transporteAcesso);
+		hospedagem.setPark(park);
+				
+		try {
+			hospedagemDao.inserirHospedagem(hospedagem);
+		} catch(SQLException ex) {
+			System.out.println("Nao foi possivel inserir um novo evento no sistema!");
+		}
+		
+	}
+	
+	public void cadastrarPersonagem() { 
+		
+		Personagem personagem = new Personagem();
+		
+		String nome = null;
+		String animacao = null;
+		
+		System.out.println("Nome do personagem: ");
+		nome = entrada.nextLine();
+		
+		System.out.println("Animação ao qual o personagem faz parte: ");
+		animacao = entrada.nextLine();
+		
+		personagem.setNome(nome);
+		personagem.setAnimacao(animacao);
+		
+		try {
+			personagemDao.inserirPersonagem(personagem);
+		} catch(SQLException ex) {
+			System.out.println("Nao foi possivel inserir um novo personagem no sistema!");
+		}
+		
+	}
+	
+	public void cadastrarPersonagemEmAtracao()
+	{
+		/*
+		String idAtracao;
+		String idPersonagem;
+		
+		System.out.println("Informe o id do personagem: ");
+		idPersonagem = entrada.nextLine();
+		
+		System.out.println("Informe o id da atracao: ");
+		idAtracao = entrada.nextLine();
+		
+		try {
+			atra_has_person_Dao.inserirPersonagemEmAtracao(Integer.parseInt(idAtracao), Integer.parseInt(idPersonagem));
+		} catch(SQLException ex) {
+			System.out.println("Nao foi possivel efetuar este cadastro!");
+		}
+		*/
+	}
+	
+	public void cadastrarPersonagemEmEvento()
+	{
+	/*
+		String idEvento;
+		String idPersonagem;
+		
+		System.out.println("Informe o id do personagem: ");
+		idPersonagem = entrada.nextLine();
+		
+		System.out.println("Informe o id do evento: ");
+		idEvento = entrada.nextLine();
+		
+		try {
+			even_has_person_Dao.inserirPersonagemEmEvento(Integer.parseInt(idEvento), Integer.parseInt(idPersonagem));
 		} catch(SQLException ex) {
 			System.out.println("Nao foi possivel efetuar este cadastro!");
 		}
@@ -610,41 +815,59 @@ public class Menu {
 		}
 	}
 	
-	public void menuAvancado() {
+	public void menuAvancado(){
 		while(true) {
 			System.out.println("1. Cadastrar Hospedagem || 2. Cadastrar Restaurante || 3. Cadastrar Atração || 4. Cadastrar Evento || 5. Cadastrar Personagem");
-			System.out.println("6. Cadastrar Restaurante em Park || 7. Cadastrar hospedagem em Park || 8. Cadastrar Personagem em Atração || 9. Cadastrar Personagem em Eventos");
-			System.out.println("10. Voltar || 11. Sair");
+			System.out.println("6. Cadastrar Restaurante em Park || 7. Cadastrar Personagem em Atração || 8. Cadastrar Personagem em Eventos");
+			System.out.println("9. Voltar || 10. Sair");
 			
 			int c = entrada.nextInt();
 			
 			switch(c) {
 			case 1:
+				try {
+					this.cadastrarHospedagem();
+				} catch (NumberFormatException e1) {					
+					e1.printStackTrace();
+				} catch (SQLException e1) {					
+					e1.printStackTrace();
+				}
 				break;
 			case 2:
 				this.cadastrarRestaurante();
 				break;
 			case 3:
+				this.cadastrarAtracao();
 				break;
 			case 4:
+				try {
+					this.cadastrarEvento();
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {					
+					e.printStackTrace();
+				}
 				break;
 			case 5:
+				this.cadastrarPersonagem();
 				break;
 			case 6:
 				this.cadastrarRestauranteEmPark();
 				break;
 			case 7:
+				this.cadastrarPersonagemEmAtracao();
 				break;
 			case 8:
+				this.cadastrarPersonagemEmEvento();
 				break;
 			case 9:
-				break;
-			case 10:
 				this.menuGlobal();
 				break;
-			case 11:
+			case 10:
 				System.exit(0);
 				break;
+			default:
+				System.out.println("Informe um número do menu");
 			}
 		}
 	}
@@ -669,6 +892,7 @@ public class Menu {
 				break;
 			case 5:
 				this.menuAvancado();
+				break;
 			case 6:
 				System.exit(0);
 				break;
