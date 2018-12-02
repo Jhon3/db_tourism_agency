@@ -6,8 +6,18 @@ public class Pacote {
 	private int qtdPessoas;
 	private String nome;
 	private Park park;
+	private float valor;
 	
 	
+	
+	
+	
+	public float getValor() {
+		return valor;
+	}
+	public void setValor(float valor) {
+		this.valor = valor;
+	}
 	public String getNome() {
 		return nome;
 	}

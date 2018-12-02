@@ -32,13 +32,12 @@ public class VendaDao {
 		int idAgente = venda.getAgente().getIdAgente();
 		int idPacote = venda.getPacote().getIdPacote();
 		
-		String sql = "Insert into Venda values(default, ?, ?, ?, ?, ?)";
+		String sql = "Insert into Venda values(default, ?, ?, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
 		pst.setDate(1, (Date) venda.getDataVenda());
-		pst.setFloat(2, venda.getValor());
-		pst.setInt(3, idCliente);
-		pst.setInt(4, idAgente);
-		pst.setInt(5, idPacote);
+		pst.setInt(2, idCliente);
+		pst.setInt(3, idAgente);
+		pst.setInt(4, idPacote);
 		
 		pst.execute();
 		conn.commit();
@@ -51,10 +50,9 @@ public class VendaDao {
 		int idAgente = venda.getAgente().getIdAgente();
 		int idPacote = venda.getPacote().getIdPacote();
 		
-		String sql = "update Venda set data_venda =?, valor =?, idCliente, idAgente, idPacote where idVenda = ?";
+		String sql = "update Venda set data_venda =?, idCliente, idAgente, idPacote where idVenda = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setDate(1, (Date) venda.getDataVenda());
-		pstmt.setFloat(2, venda.getValor());
 		pstmt.setInt(3, idCliente);
 		pstmt.setInt(4, idAgente);
 		pstmt.setInt(5, idPacote);
@@ -86,7 +84,6 @@ public class VendaDao {
 		while(rs.next()){ 
 			Venda v = new Venda();
 			v.setDataVenda(rs.getDate("data_venda"));
-			v.setValor(rs.getFloat("valor"));
 			v.setIdVenda(rs.getInt("idVenda"));
 			Cliente cliente = clienteDao.buscarClientePorId(rs.getInt("idcliente"));
 			Agente agente = agenteDao.buscarAgentePorId(rs.getInt("idagente"));
@@ -124,7 +121,6 @@ public class VendaDao {
 		Pacote pacote = new Pacote();
 		
 		Date data_venda = null;
-		float valor = 0;
 		
 		PreparedStatement pst = null; 
 		ResultSet rs = null;
@@ -134,14 +130,12 @@ public class VendaDao {
 		rs = pst.executeQuery();
 		while(rs.next()){
 			data_venda = rs.getDate("data_venda");
-			valor = rs.getFloat("valor");
 			agente = agenteDao.buscarAgentePorId(rs.getInt("idAgente"));
 			pacote = pacoteDao.buscarPacotePorId(rs.getInt("idPacote"));
 			cliente = clienteDao.buscarClientePorId(rs.getInt("idCliente"));
 		}
 		Venda.setDataVenda(data_venda);
 		Venda.setIdVenda(id);
-		Venda.setValor(valor);
 		Venda.setAgente(agente);
 		Venda.setPacote(pacote);
 		Venda.setCliente(cliente);

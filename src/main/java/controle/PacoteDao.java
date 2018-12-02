@@ -25,11 +25,12 @@ public class PacoteDao {
 		
 		int idPark = pacote.getPark().getIdPark();
 
-		String sql = "Insert into Pacote values(default, ?, ?, ?)";
+		String sql = "Insert into Pacote values(default, ?, ?, ?, ?)";
 		PreparedStatement pst = conn.prepareStatement(sql);
-		pst.setInt(1, pacote.getQtdPessoas());
-		pst.setInt(2, idPark);
-		pst.setString(3, pacote.getNome());
+		pst.setInt(2, pacote.getQtdPessoas());
+		pst.setInt(3, idPark);
+		pst.setString(1, pacote.getNome());
+		pst.setFloat(4, pacote.getValor());
 		pst.execute();
 		conn.commit();
 		pst.close();
@@ -39,12 +40,13 @@ public class PacoteDao {
 	public void alterarPacote(Pacote pacote) throws SQLException{
 		int idPark = pacote.getPark().getIdPark();
 
-		String sql = "update Pacote set qtdpessoas = ?, idPark = ?, nome = ? where idPacote = ?";
+		String sql = "update Pacote set qtdpessoas = ?, idPark = ?, nome = ?, valor= ? where idPacote = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, pacote.getQtdPessoas());
 		pstmt.setInt(2, idPark);
 		pstmt.setString(3, pacote.getNome());
-		pstmt.setInt(4, pacote.getIdPacote());
+		pstmt.setFloat(4, pacote.getValor());
+		pstmt.setInt(5, pacote.getIdPacote());
 		
 		pstmt.execute();
 		conn.commit();
@@ -56,6 +58,15 @@ public class PacoteDao {
 		String sql = "delete from Pacote where idPacote = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql); 
 		pstmt.setInt(1, pacote.getIdPacote());
+		pstmt.execute();
+		conn.commit();
+		pstmt.close();
+		System.out.println("Pacote deletado(a).");
+	}
+	
+	public void deletarPacotePorId(int idPacote) throws SQLException{
+		String sql = "delete from Pacote where idPacote = " + idPacote;
+		PreparedStatement pstmt = conn.prepareStatement(sql); 
 		pstmt.execute();
 		conn.commit();
 		pstmt.close();
@@ -76,12 +87,13 @@ public class PacoteDao {
 			h.setQtdPessoas(rs.getInt("qtdpessoas"));
 			Park park = parkDao.buscarParkPorId(rs.getInt("idPark"));
 			h.setPark(park);
+			h.setValor(rs.getFloat("valor"));
 			pacotes.add(h);
 		}
 		return pacotes;
 	}
 	
-	
+	/*
 	public int buscarIdPacote(String PacoteNome) throws SQLException {
 		int id=0;
 		PreparedStatement pst = null; 
@@ -94,12 +106,14 @@ public class PacoteDao {
 		}
 		return id;
 	}
+	*/
 	
 	public Pacote buscarPacotePorId(int idPacote) throws SQLException {
 		int id = idPacote;
 		Pacote pacote = new Pacote();
 		Park park = new Park();
 		int qtdPessoas = 0;
+		float valor = 0;
 		String nome = null;
 		
 		PreparedStatement pst = null; 
@@ -112,11 +126,13 @@ public class PacoteDao {
 			qtdPessoas = rs.getInt("qtdpessoas");
 			park = parkDao.buscarParkPorId(rs.getInt("idPark"));
 			nome = rs.getString("nome");
+			valor = rs.getFloat("valor");
 		}
 		pacote.setQtdPessoas(qtdPessoas);
 		pacote.setPark(park);
 		pacote.setIdPacote(idPacote);
 		pacote.setNome(nome);
+		pacote.setValor(valor);
 		
 		return pacote;
 	}
