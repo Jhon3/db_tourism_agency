@@ -26,6 +26,7 @@ import modelo.Agente;
 import modelo.Cliente;
 import modelo.Pacote;
 import modelo.Park;
+import modelo.Pessoa;
 import modelo.Venda;
 
 public class Menu {
@@ -335,6 +336,35 @@ public class Menu {
 	*/
 	}
 	
+	public void listarCliente() {
+		/*
+		ArrayList<Cliente> clientes;
+		try {
+			clientes = (ArrayList<Cliente>) clienteDao.listar();
+			for(Cliente c: clientes) {
+				System.out.println(c.getIdCliente() + ". " + c.getPessoa().getNome());
+			}
+		} catch (SQLException e) {
+			System.out.println("Nao foi possivel listar clientes!");
+		}
+
+		*/
+	}
+	
+	public void cadastrarCliente() {
+		Pessoa pessoa = new Pessoa();
+		//String nome = 
+		
+	}
+	
+	public void deletarCliente() {
+		
+	}
+	
+	public void editarCliente() {
+		
+	}
+	
 	/*Métodos para o park*/
 	public void selecionarPark() {
       
@@ -413,19 +443,19 @@ public class Menu {
 	
 	public void menuCliente() {
 		while(true) {
-			this.listarVendas();
+			this.listarCliente();
 			System.out.println("1. Cadastrar cliente || 2. Deletar cliente || 3. Editar cliente || 4. Voltar || 5. Sair");
 			int c = entrada.nextInt();
 			
 			switch(c) {
 			case 1:
-				this.cadastrarVenda();
+				this.cadastrarCliente();
 				break;
 			case 2:
-				this.deletarVenda();
+				this.deletarCliente();
 				break;
 			case 3:
-				this.editarVenda();
+				this.editarCliente();
 				break;
 			case 4:
 				this.menuGlobal();
