@@ -73,6 +73,15 @@ public class VendaDao {
 		System.out.println("Venda deletado(a).");
 	}
 	
+	public void deletarVendaPorId(int id) throws SQLException{
+		String sql = "delete from Venda where idVenda =  " + id;
+		PreparedStatement pstmt = conn.prepareStatement(sql); 
+		pstmt.execute();
+		conn.commit();
+		pstmt.close();
+		System.out.println("Venda deletado(a).");
+	}
+	
 	
 	public List<Venda> listar() throws SQLException {
 		PreparedStatement pst = null;
