@@ -5,8 +5,8 @@ public class Personagem {
 	private int idPersonagem;
 	private String nome;
 	private String animacao;
-	private Evento evento;
-	private Atracao atracao;
+	//private Evento evento;
+	//private Atracao atracao;
 	
 	public int getIdPersonagem() {
 		return idPersonagem;
@@ -26,6 +26,7 @@ public class Personagem {
 	public void setAnimacao(String animacao) {
 		this.animacao = animacao;
 	}
+	/*
 	public Evento getEvento() {
 		return evento;
 	}
@@ -38,6 +39,6 @@ public class Personagem {
 	public void setAtracao(Atracao atracao) {
 		this.atracao = atracao;
 	}
-	
+	*/
 	
 }
