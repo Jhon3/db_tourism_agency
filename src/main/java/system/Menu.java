@@ -20,6 +20,7 @@ import controle.ParkDao;
 import controle.PersonagemDao;
 import controle.PessoaDao;
 import controle.RestauranteDao;
+import controle.Restaurantes_has_park_Dao;
 import controle.VendaDao;
 import controle.VooDao;
 import modelo.Agente;
@@ -27,6 +28,7 @@ import modelo.Cliente;
 import modelo.Pacote;
 import modelo.Park;
 import modelo.Pessoa;
+import modelo.Restaurante;
 import modelo.Venda;
 
 public class Menu {
@@ -41,11 +43,12 @@ public class Menu {
 	private PersonagemDao personagemDao;
 	private PessoaDao pessoaDao;
 	private RestauranteDao restauranteDao;
+	private Restaurantes_has_park_Dao rest_has_park_Dao;
 	private VendaDao vendaDao;
 	private VooDao vooDao;
 	private Scanner entrada;
 	
-	private Menu() throws SQLException {
+	public Menu() throws SQLException {
 		super();
 		this.pacoteDao = new PacoteDao();
 		this.agenteDao = new AgenteDao();
@@ -63,7 +66,7 @@ public class Menu {
 		this.entrada = new Scanner(System.in);
 	}
 	
-	/*M�todos para o Pacote*/
+	/*M�todos para o Pacote*/
 	public void listarPacotes() {
 		/*
 		ArrayList<Pacote> pacotes;
@@ -437,7 +440,7 @@ public class Menu {
 		*/
 	}
 	
-	/*M�todos para o park*/
+	/*M�todos para o park*/
 	public void selecionarPark() {
       
 		int id;
@@ -455,6 +458,74 @@ public class Menu {
         	System.out.println("Nao foi possivel selecionar park");
         }
 	*/
+	}
+	
+	public void cadastrarRestaurante() { 
+		/*
+		Restaurante restaurante = new Restaurante();
+		String nome = null;
+		String pontoReferencia = null;
+		String tipoCulinaria = null;
+		String tipoRestaurante = null;
+		String faixaPrecos = null;
+		String horarioAbertura = null;
+		String horarioEncerramento = null;
+		
+		System.out.println("Nome do restaurante: ");
+		nome = entrada.nextLine();
+		
+		System.out.println("Informe um ponto de referência: ");
+		pontoReferencia = entrada.nextLine();
+		
+		System.out.println("Informe o tipo de culinária do restaurante: ");
+		tipoCulinaria = entrada.nextLine();
+		
+		System.out.println("Informe o tipo de restaurante: ");
+		tipoRestaurante = entrada.nextLine();
+		
+		System.out.println("Informe a faixa de preços do restaurante: ");
+		faixaPrecos = entrada.nextLine();
+		
+		System.out.println("Informe o horário de abertura: ");
+		horarioAbertura = entrada.nextLine();
+		
+		System.out.println("Informe o horário de encerramento: ");
+		horarioEncerramento = entrada.nextLine();
+		
+		restaurante.setNome(nome);
+		restaurante.setPontoReferencia(pontoReferencia);
+		restaurante.setTipoCulinaria(tipoCulinaria);
+		restaurante.setTipoRestaurante(tipoRestaurante);
+		restaurante.setFaixaPrecos(faixaPrecos);
+		restaurante.setHorarioAbertura(horarioAbertura);
+		restaurante.setHorarioEncerramento(horarioEncerramento);
+		
+		try {
+			restauranteDao.inserirRestaurante(restaurante);
+		} catch(SQLException ex) {
+			System.out.println("Nao foi possivel inserir um novo restaurante no sistema!");
+		}
+		*/
+	}
+	
+	public void cadastrarRestauranteEmPark()
+	{
+		/*
+		String idPark;
+		String idRestaurante;
+		
+		System.out.println("Informe o id do park: ");
+		idPark = entrada.nextLine();
+		
+		System.out.println("Informe o id do restaurante: ");
+		idRestaurante = entrada.nextLine();
+		
+		try {
+			rest_has_park_Dao.inserirRestauranteEmPark(Integer.parseInt(idRestaurante), Integer.parseInt(idPark));
+		} catch(SQLException ex) {
+			System.out.println("Nao foi possivel efetuar este cadastro!");
+		}
+		*/
 	}
 	
 	/*Menus */
@@ -539,6 +610,44 @@ public class Menu {
 		}
 	}
 	
+	public void menuAvancado() {
+		while(true) {
+			System.out.println("1. Cadastrar Hospedagem || 2. Cadastrar Restaurante || 3. Cadastrar Atração || 4. Cadastrar Evento || 5. Cadastrar Personagem");
+			System.out.println("6. Cadastrar Restaurante em Park || 7. Cadastrar hospedagem em Park || 8. Cadastrar Personagem em Atração || 9. Cadastrar Personagem em Eventos");
+			System.out.println("10. Voltar || 11. Sair");
+			
+			int c = entrada.nextInt();
+			
+			switch(c) {
+			case 1:
+				break;
+			case 2:
+				this.cadastrarRestaurante();
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				this.cadastrarRestauranteEmPark();
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+			case 9:
+				break;
+			case 10:
+				this.menuGlobal();
+				break;
+			case 11:
+				System.exit(0);
+				break;
+			}
+		}
+	}
 	
 	public void menuGlobal() {
 		while(true) {
@@ -559,7 +668,7 @@ public class Menu {
 			case 4:
 				break;
 			case 5:
-				break;
+				this.menuAvancado();
 			case 6:
 				System.exit(0);
 				break;
@@ -567,13 +676,8 @@ public class Menu {
 		}
 	}
 	
-	
 	public static void main(String[] args) throws SQLException {
 		Menu menu = new Menu();
-		menu.menuGlobal();
-		
+		menu.menuGlobal();		
 	}
-	
-	
-
 }
